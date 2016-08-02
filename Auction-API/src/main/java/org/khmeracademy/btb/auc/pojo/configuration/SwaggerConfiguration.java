@@ -26,7 +26,7 @@ public class SwaggerConfiguration {
             public Docket api() { 
                 return new Docket(DocumentationType.SWAGGER_2)  
                   .select()                                  
-                  .apis(RequestHandlerSelectors.basePackage("kh.com.kshrd.boot.pojo.controller"))              
+                  .apis(RequestHandlerSelectors.basePackage("org.khmeracademy.btb.auc.pojo.controller"))              
                   .paths(PathSelectors.any())                         
                   .build();                                           
             }
