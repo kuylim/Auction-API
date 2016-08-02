@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kh.com.kshrd.boot.pojo.entity;
+package org.khmeracademy.btb.auc.pojo.entity;
 
 /**
  *

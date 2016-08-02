@@ -1,6 +1,6 @@
 package kh.com.khsrd.boot;
 
-import kh.com.kshrd.boot.pojo.AuctionApplication;
+import org.khmeracademy.btb.auc.pojo.AuctionApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;

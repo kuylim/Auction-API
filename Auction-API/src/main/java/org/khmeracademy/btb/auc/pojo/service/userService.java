@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kh.com.kshrd.boot.pojo.service;
+package org.khmeracademy.btb.auc.pojo.service;
 
 import java.util.ArrayList;
-import kh.com.kshrd.boot.pojo.entity.User;
+import org.khmeracademy.btb.auc.pojo.entity.User;
 
 /**
  *

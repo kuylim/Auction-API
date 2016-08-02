@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kh.com.kshrd.boot.pojo.repository;
+package org.khmeracademy.btb.auc.pojo.repository;
 
 import java.util.ArrayList;
 import org.apache.ibatis.annotations.Delete;
@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
-import kh.com.kshrd.boot.pojo.entity.User;
+import org.khmeracademy.btb.auc.pojo.entity.User;
 
 /**
  *

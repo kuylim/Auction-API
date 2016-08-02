@@ -1,10 +1,10 @@
 
-package kh.com.kshrd.boot.pojo.controller;
+package org.khmeracademy.btb.auc.pojo.controller;
 
 
 import java.util.ArrayList;
-import kh.com.kshrd.boot.pojo.entity.User;
-import kh.com.kshrd.boot.pojo.service.userService;
+import org.khmeracademy.btb.auc.pojo.entity.User;
+import org.khmeracademy.btb.auc.pojo.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

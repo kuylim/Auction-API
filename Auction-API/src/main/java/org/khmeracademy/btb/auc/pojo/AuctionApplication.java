@@ -1,4 +1,4 @@
-package kh.com.kshrd.boot.pojo;
+package org.khmeracademy.btb.auc.pojo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
