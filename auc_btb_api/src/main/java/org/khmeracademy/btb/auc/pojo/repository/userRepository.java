@@ -21,9 +21,9 @@ import org.khmeracademy.btb.auc.pojo.entity.User;
  */
 @Repository
 public interface userRepository {
-    @Select("Select * from tbluser")
+    @Select("Select * from auc_user")
     @Results({
-        @Result(property = "id", column = "usrid"),
+        @Result(property = "id", column = "usr_id"),
         @Result(property = "username", column = "username"),
         @Result(property = "password", column = "password"),
         @Result(property = "phone", column = "phone"),
@@ -32,18 +32,18 @@ public interface userRepository {
     })
     ArrayList<User> getUsers();
     
-    @Delete("DELETE FROM tbluser WHERE usrid=#{id}")
+    @Delete("DELETE FROM auc_user WHERE usr_id=#{id}")
     boolean remove(int id);
     
-    @Insert("Insert Into tbluser (username, password, phone, email, status) values (#{username}, #{password}, #{phone}, #{email}, #{status})")
+    @Insert("Insert Into auc_user (username, password, phone, email, status) values (#{username}, #{password}, #{phone}, #{email}, #{status})")
     boolean add(User user);
     
-    @Update("Update tbluser Set username=#{username}, password=#{password}, phone=#{phone} where usrid = #{id}")
+    @Update("Update auc_user Set username=#{username}, password=#{password}, phone=#{phone} where usr_id = #{id}")
     boolean update (User user);
     
-    @Select("Select * from tbluser where usrid = #{id}")
+    @Select("Select * from auc_user where usr_id = #{id}")
     @Results({
-        @Result(property = "id", column = "usrid"),
+        @Result(property = "id", column = "usr_id"),
         @Result(property = "username", column = "username"),
         @Result(property = "password", column = "password"),
         @Result(property = "phone", column = "phone"),

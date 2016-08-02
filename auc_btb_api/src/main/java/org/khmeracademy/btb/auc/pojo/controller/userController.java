@@ -3,9 +3,13 @@ package org.khmeracademy.btb.auc.pojo.controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.khmeracademy.btb.auc.pojo.entity.User;
 import org.khmeracademy.btb.auc.pojo.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +30,35 @@ public class userController {
     
     @RequestMapping(value="/get", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public ArrayList<User> getUsers(){
-	ArrayList<User> user = usrService.getUsers();
-	return user;
+//    public ArrayList<User> getUsers(){
+//	ArrayList<User> user = usrService.getUsers();
+//	return user;
+//    }
+    public ResponseEntity<Map<String, Object>> getUsers()
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            ArrayList<User> users = usrService.getUsers();
+            if(!users.isEmpty())
+            {
+                map.put("DATA", users);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
     
     @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
