@@ -19,7 +19,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
  * @author KUYLIM
  */
 @EnableAutoConfiguration
-@MapperScan("kh.com.kshrd.boot.pojo.repository")
+@MapperScan("org.khmeracademy.btb.auc.pojo.repository")
 @Configuration
 public class MainConfiguration {
     @Autowired
