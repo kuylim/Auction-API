@@ -6,7 +6,6 @@
 package org.khmeracademy.btb.auc.pojo.repository;
 
 import java.util.ArrayList;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -21,7 +20,7 @@ import org.khmeracademy.btb.auc.pojo.entity.User;
  */
 @Repository
 public interface userRepository {
-    @Select("Select * from auc_user")
+    @Select("Select * from auc_user  Where status = 'true'")
     @Results({
         @Result(property = "id", column = "usr_id"),
         @Result(property = "username", column = "username"),
@@ -32,13 +31,16 @@ public interface userRepository {
     })
     ArrayList<User> getUsers();
     
-    @Delete("DELETE FROM auc_user WHERE usr_id=#{id}")
+    //delete
+    @Update("Update auc_user Set status = 'false' WHERE usr_id=#{id}")
     boolean remove(int id);
     
-    @Insert("Insert Into auc_user (username, password, phone, email, status) values (#{username}, #{password}, #{phone}, #{email}, #{status})")
+    
+    @Insert("Insert Into auc_user (username, password, phone, email, status) values (#{username}, #{password}, #{phone}, #{email}, 'true')")
     boolean add(User user);
     
-    @Update("Update auc_user Set username=#{username}, password=#{password}, phone=#{phone} where usr_id = #{id}")
+   
+    @Update("Update auc_user Set username=#{username}, password=#{password}, phone=#{phone}, email=#{email} where usr_id = #{id}")
     boolean update (User user);
     
     @Select("Select * from auc_user where usr_id = #{id}")

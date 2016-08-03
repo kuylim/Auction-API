@@ -1,12 +1,15 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package org.khmeracademy.btb.auc.pojo.controller;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import org.khmeracademy.btb.auc.pojo.entity.User;
-import org.khmeracademy.btb.auc.pojo.service.userService;
+import org.khmeracademy.btb.auc.pojo.entity.Product_Owner;
+import org.khmeracademy.btb.auc.pojo.service.Product_owner_service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author KUYLIM
+ * @author User
  */
 @RestController
-@RequestMapping(value = "/api/user")
-public class userController {
-    
+@RequestMapping(value = "/api/product-owner")
+public class Product_owner_controller {
     @Autowired
-    private userService usrService;
+    private Product_owner_service pro_owner_service;
     
     @RequestMapping(value="/get", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
@@ -35,7 +37,7 @@ public class userController {
         Map<String, Object> map = new HashMap<String, Object>();
         try
         {
-            ArrayList<User> users = usrService.getUsers();
+            ArrayList<Product_Owner> users = pro_owner_service.get_Product_Owner();
             if(!users.isEmpty())
             {
                 map.put("DATA", users);
@@ -62,7 +64,7 @@ public class userController {
     {
         Map<String, Object> map = new HashMap<String , Object>();
         try{
-            if(usrService.remove(id)){
+            if(pro_owner_service.remove(id)){
 		map.put("MESSAGE", "User has been deleted");
 		map.put("STATUS", true);
             }
@@ -82,12 +84,12 @@ public class userController {
 
     
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<Map<String, Object>> add(@RequestBody User usr)
+    public ResponseEntity<Map<String, Object>> add(@RequestBody Product_Owner pro_owner)
     {
        Map<String, Object> map = new HashMap<String , Object>();
         try{
             
-            if(usrService.save(usr)){
+            if(pro_owner_service.save(pro_owner)){
 		map.put("MESSAGE", "User has been inserted.");
 		map.put("STATUS", true);
             }else
@@ -105,16 +107,13 @@ public class userController {
     }
     
     @RequestMapping(value = "/edit", method = RequestMethod.PUT, produces = "application/json")
-//    public void edit(@RequestBody User stu)
-//    {
-//        usrService.update(stu);    
-//    }
-    public ResponseEntity<Map<String, Object>> edit(@RequestBody User usr)
+
+    public ResponseEntity<Map<String, Object>> edit(@RequestBody Product_Owner pro_owner)
     {
          Map<String, Object> map = new HashMap<String , Object>();
          try{
             
-            if(usrService.update(usr)){
+            if(pro_owner_service.update(pro_owner)){
 		map.put("MESSAGE", "User has been updated.");
 		map.put("STATUS", true);
             }else
@@ -133,19 +132,15 @@ public class userController {
     
     @RequestMapping(value="/search/{id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-//    public User search(@PathVariable("id") int id){
-//	User user = usrService.search(id);
-//	return user;
-//    }
     public ResponseEntity<Map<String, Object>> search(@PathVariable("id") int id)
     {
          Map<String, Object> map = new HashMap<String, Object>();
         try
         {
-            User user = usrService.search(id);
-            if(user!=null)
+            Product_Owner pro_owner = pro_owner_service.search(id);
+            if(pro_owner!=null)
             {
-                map.put("DATA", user);
+                map.put("DATA", pro_owner);
                 map.put("STATUS", true);
                 map.put("MESSAGE", "DATA FOUND!");
             }

@@ -1,11 +1,17 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package org.khmeracademy.btb.auc.pojo.controller;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import org.khmeracademy.btb.auc.pojo.entity.Product;
 import org.khmeracademy.btb.auc.pojo.entity.User;
+import org.khmeracademy.btb.auc.pojo.repository.userRepository;
+import org.khmeracademy.btb.auc.pojo.service.Product_service;
 import org.khmeracademy.btb.auc.pojo.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,14 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author KUYLIM
+ * @author User
  */
 @RestController
-@RequestMapping(value = "/api/user")
-public class userController {
-    
+@RequestMapping(value = "/api/product")
+public class Product_Controller {
     @Autowired
-    private userService usrService;
+    private Product_service pro_service;
     
     @RequestMapping(value="/get", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
@@ -35,10 +40,10 @@ public class userController {
         Map<String, Object> map = new HashMap<String, Object>();
         try
         {
-            ArrayList<User> users = usrService.getUsers();
-            if(!users.isEmpty())
+            ArrayList<Product> pro = pro_service.getProduct();
+            if(!pro.isEmpty())
             {
-                map.put("DATA", users);
+                map.put("DATA", pro);
                 map.put("STATUS", true);
                 map.put("MESSAGE", "DATA FOUND!");
             }
@@ -62,7 +67,7 @@ public class userController {
     {
         Map<String, Object> map = new HashMap<String , Object>();
         try{
-            if(usrService.remove(id)){
+            if(pro_service.remove(id)){
 		map.put("MESSAGE", "User has been deleted");
 		map.put("STATUS", true);
             }
@@ -82,12 +87,12 @@ public class userController {
 
     
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<Map<String, Object>> add(@RequestBody User usr)
+    public ResponseEntity<Map<String, Object>> add(@RequestBody Product pro)
     {
        Map<String, Object> map = new HashMap<String , Object>();
         try{
             
-            if(usrService.save(usr)){
+            if(pro_service.save(pro)){
 		map.put("MESSAGE", "User has been inserted.");
 		map.put("STATUS", true);
             }else
@@ -109,12 +114,12 @@ public class userController {
 //    {
 //        usrService.update(stu);    
 //    }
-    public ResponseEntity<Map<String, Object>> edit(@RequestBody User usr)
+    public ResponseEntity<Map<String, Object>> edit(@RequestBody Product pro)
     {
          Map<String, Object> map = new HashMap<String , Object>();
          try{
             
-            if(usrService.update(usr)){
+            if(pro_service.update(pro)){
 		map.put("MESSAGE", "User has been updated.");
 		map.put("STATUS", true);
             }else
@@ -142,10 +147,10 @@ public class userController {
          Map<String, Object> map = new HashMap<String, Object>();
         try
         {
-            User user = usrService.search(id);
-            if(user!=null)
+            Product pro = pro_service.search(id);
+            if(pro!=null)
             {
-                map.put("DATA", user);
+                map.put("DATA", pro);
                 map.put("STATUS", true);
                 map.put("MESSAGE", "DATA FOUND!");
             }
