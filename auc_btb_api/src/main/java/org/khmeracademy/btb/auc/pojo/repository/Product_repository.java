@@ -37,7 +37,7 @@ public interface Product_repository {
     boolean remove(int id);
     
     
-    @Insert("Insert Into auc_product (name, pro_info, status, cat_id, brand_id, image) values (#{name}, #{pro_info}, 'true', #{cat_id}, #{brand_id})")
+    @Insert("Insert Into auc_product (name, pro_info, status, cat_id, brand_id, image) values (#{name}, #{pro_info}, 'true', #{cat_id}, #{brand_id}, #{image})")
     boolean add(Product pro);
     
    
