@@ -9,10 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import org.khmeracademy.btb.auc.pojo.entity.Product;
-import org.khmeracademy.btb.auc.pojo.entity.User;
-import org.khmeracademy.btb.auc.pojo.repository.userRepository;
 import org.khmeracademy.btb.auc.pojo.service.Product_service;
-import org.khmeracademy.btb.auc.pojo.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,12 +65,12 @@ public class Product_Controller {
         Map<String, Object> map = new HashMap<String , Object>();
         try{
             if(pro_service.remove(id)){
-		map.put("MESSAGE", "User has been deleted");
+		map.put("MESSAGE", "Product has been deleted");
 		map.put("STATUS", true);
             }
             else
             {
-		map.put("MESSAGE", "User has not been deleted");
+		map.put("MESSAGE", "Product has not been deleted");
 		map.put("STATUS", false);
             }
 	}
@@ -93,11 +90,11 @@ public class Product_Controller {
         try{
             
             if(pro_service.save(pro)){
-		map.put("MESSAGE", "User has been inserted.");
+		map.put("MESSAGE", "Product has been inserted.");
 		map.put("STATUS", true);
             }else
             {
-		map.put("MESSAGE", "User has not been inserted.");
+		map.put("MESSAGE", "Product has not been inserted.");
 		map.put("STATUS", false);
             }
 	}
@@ -110,21 +107,17 @@ public class Product_Controller {
     }
     
     @RequestMapping(value = "/edit", method = RequestMethod.PUT, produces = "application/json")
-//    public void edit(@RequestBody User stu)
-//    {
-//        usrService.update(stu);    
-//    }
     public ResponseEntity<Map<String, Object>> edit(@RequestBody Product pro)
     {
          Map<String, Object> map = new HashMap<String , Object>();
          try{
             
             if(pro_service.update(pro)){
-		map.put("MESSAGE", "User has been updated.");
+		map.put("MESSAGE", "Product has been updated.");
 		map.put("STATUS", true);
             }else
             {
-		map.put("MESSAGE", "User has not been updated.");
+		map.put("MESSAGE", "Product has not been updated.");
 		map.put("STATUS", false);
             }
 	}
@@ -138,10 +131,6 @@ public class Product_Controller {
     
     @RequestMapping(value="/search/{id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-//    public User search(@PathVariable("id") int id){
-//	User user = usrService.search(id);
-//	return user;
-//    }
     public ResponseEntity<Map<String, Object>> search(@PathVariable("id") int id)
     {
          Map<String, Object> map = new HashMap<String, Object>();

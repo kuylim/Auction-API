@@ -13,7 +13,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.btb.auc.pojo.entity.Auction;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
-import org.khmeracademy.btb.auc.pojo.entity.User;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -54,13 +53,43 @@ public interface Auction_repository {
     //delete
     @Update("Update auc_auction Set status = 'false' WHERE auc_id=#{id}")
     boolean remove(int id);
-    
-    
-    @Insert("Insert Into auc_auction (product_condition, start_price, buy_price, bid_increment_price, current_price, start_date, end_date, status, owner_id, usr_id, pro_id) values (#{product_condition}, #{start_price}, #{buy_price}, #{bid_increment_price}, #{current_price}, #{start_date}, #{end_date}, 'true', #{owner_id}, #{usr_id}, #{pro_id})")
+     
+    @Insert("Insert Into auc_auction "
+            + "(product_condition, "
+            + "start_price, "
+            + "buy_price, "
+            + "bid_increment_price, "
+            + "current_price, "
+            + "start_date, "
+            + "end_date, "
+            + "status, "
+            + "owner_id, "
+            + "usr_id, "
+            + "pro_id) "
+            + "values (#{product_condition}, "
+            + "#{start_price}, "
+            + "#{buy_price}, "
+            + "#{bid_increment_price}, "
+            + "#{current_price}, "
+            + "#{start_date}, "
+            + "#{end_date}, "
+            + "'true', "
+            + "#{owner_id}, "
+            + "#{usr_id}, "
+            + "#{pro_id})")
     boolean add(Auction auction);
     
    
-    //@Update("Update auc_user Set username=#{username}, password=#{password}, phone=#{phone}, email=#{email} where usr_id = #{id}")
+    @Update("Update auc_auction Set product_condition=#{product_condition}, "
+            + "start_price=#{start_price}, "
+            + "buy_price=#{buy_price}, "
+            + "bid_increment_price=#{bid_increment_price}, "
+            + "current_price=#{current_price}, "
+            + "start_date=#{start_date}, "
+            + "end_date=#{end_date}, "
+            + "owner_id=#{owner_id}, "
+            + "usr_id=#{usr_id}, "
+            + "pro_id=#{pro_id}   where auc_id = #{auc_id}")
     boolean update (Auction auction);
     
     @Select("SELECT \n" +

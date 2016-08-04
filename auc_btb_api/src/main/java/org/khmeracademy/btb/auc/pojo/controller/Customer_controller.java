@@ -65,12 +65,12 @@ public class Customer_controller {
         Map<String, Object> map = new HashMap<String , Object>();
         try{
             if(cus_service.remove(id)){
-		map.put("MESSAGE", "User has been deleted");
+		map.put("MESSAGE", "Customer has been deleted");
 		map.put("STATUS", true);
             }
             else
             {
-		map.put("MESSAGE", "User has not been deleted");
+		map.put("MESSAGE", "Customer has not been deleted");
 		map.put("STATUS", false);
             }
 	}
@@ -90,11 +90,11 @@ public class Customer_controller {
         try{
             
             if(cus_service.save(customer)){
-		map.put("MESSAGE", "User has been inserted.");
+		map.put("MESSAGE", "Customer has been inserted.");
 		map.put("STATUS", true);
             }else
             {
-		map.put("MESSAGE", "User has not been inserted.");
+		map.put("MESSAGE", "Customer has not been inserted.");
 		map.put("STATUS", false);
             }
 	}
@@ -107,21 +107,17 @@ public class Customer_controller {
     }
     
     @RequestMapping(value = "/edit", method = RequestMethod.PUT, produces = "application/json")
-//    public void edit(@RequestBody User stu)
-//    {
-//        usrService.update(stu);    
-//    }
     public ResponseEntity<Map<String, Object>> edit(@RequestBody Customer customer)
     {
          Map<String, Object> map = new HashMap<String , Object>();
          try{
             
             if(cus_service.update(customer)){
-		map.put("MESSAGE", "User has been updated.");
+		map.put("MESSAGE", "Customer has been updated.");
 		map.put("STATUS", true);
             }else
             {
-		map.put("MESSAGE", "User has not been updated.");
+		map.put("MESSAGE", "Customer has not been updated.");
 		map.put("STATUS", false);
             }
 	}
@@ -135,10 +131,6 @@ public class Customer_controller {
     
     @RequestMapping(value="/search/{id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-//    public User search(@PathVariable("id") int id){
-//	User user = usrService.search(id);
-//	return user;
-//    }
     public ResponseEntity<Map<String, Object>> search(@PathVariable("id") int id)
     {
          Map<String, Object> map = new HashMap<String, Object>();

@@ -70,7 +70,7 @@ public class Brand_controller {
             }
             else
             {
-		map.put("MESSAGE", "User has not been deleted");
+		map.put("MESSAGE", "Product brand has not been deleted");
 		map.put("STATUS", false);
             }
 	}

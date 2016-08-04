@@ -65,12 +65,12 @@ public class Product_owner_controller {
         Map<String, Object> map = new HashMap<String , Object>();
         try{
             if(pro_owner_service.remove(id)){
-		map.put("MESSAGE", "User has been deleted");
+		map.put("MESSAGE", "Product owner has been deleted");
 		map.put("STATUS", true);
             }
             else
             {
-		map.put("MESSAGE", "User has not been deleted");
+		map.put("MESSAGE", "Product owner has not been deleted");
 		map.put("STATUS", false);
             }
 	}
@@ -90,11 +90,11 @@ public class Product_owner_controller {
         try{
             
             if(pro_owner_service.save(pro_owner)){
-		map.put("MESSAGE", "User has been inserted.");
+		map.put("MESSAGE", "Product owner has been inserted.");
 		map.put("STATUS", true);
             }else
             {
-		map.put("MESSAGE", "User has not been inserted.");
+		map.put("MESSAGE", "Product owner has not been inserted.");
 		map.put("STATUS", false);
             }
 	}
@@ -114,11 +114,11 @@ public class Product_owner_controller {
          try{
             
             if(pro_owner_service.update(pro_owner)){
-		map.put("MESSAGE", "User has been updated.");
+		map.put("MESSAGE", "Product owner has been updated.");
 		map.put("STATUS", true);
             }else
             {
-		map.put("MESSAGE", "User has not been updated.");
+		map.put("MESSAGE", "Product owner has not been updated.");
 		map.put("STATUS", false);
             }
 	}
