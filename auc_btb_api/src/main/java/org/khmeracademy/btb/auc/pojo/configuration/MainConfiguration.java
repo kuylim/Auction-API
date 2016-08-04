@@ -13,6 +13,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  *
@@ -21,7 +23,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 @EnableAutoConfiguration
 @MapperScan("org.khmeracademy.btb.auc.pojo.repository")
 @Configuration
-public class MainConfiguration {
+public class MainConfiguration extends WebMvcConfigurerAdapter{
     @Autowired
     private DataSource dataSource;
 	
@@ -35,5 +37,12 @@ public class MainConfiguration {
 	@Bean
 	public DataSourceTransactionManager transactionManager() {
 		return new DataSourceTransactionManager(dataSource);
+	}
+        
+        @Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**")
+				.allowedMethods("GET","POST","DELETE","PUT","OPTIONS","PATCH")
+				.allowedOrigins("*");
 	}
 }
