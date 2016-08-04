@@ -5,6 +5,8 @@
  */
 package org.khmeracademy.btb.auc.pojo.entity;
 
+import java.util.Date;
+
 /**
  *
  * @author KUYLIM
@@ -16,12 +18,14 @@ public class Auction {
     private double buy_price;
     private double bid_increment_price;
     private double current_price;
-    private String start_date;
-    private String end_date;
+    private Date start_date;
+    private Date end_date;
     private String status;
     private int owner_id;
     private int usr_id;
     private int pro_id;
+    private String name;
+    private String image;
 
     /**
      * @return the auc_id
@@ -107,33 +111,6 @@ public class Auction {
         this.current_price = current_price;
     }
 
-    /**
-     * @return the start_date
-     */
-    public String getStart_date() {
-        return start_date;
-    }
-
-    /**
-     * @param start_date the start_date to set
-     */
-    public void setStart_date(String start_date) {
-        this.start_date = start_date;
-    }
-
-    /**
-     * @return the end_date
-     */
-    public String getEnd_date() {
-        return end_date;
-    }
-
-    /**
-     * @param end_date the end_date to set
-     */
-    public void setEnd_date(String end_date) {
-        this.end_date = end_date;
-    }
 
     /**
      * @return the status
@@ -189,5 +166,61 @@ public class Auction {
      */
     public void setPro_id(int pro_id) {
         this.pro_id = pro_id;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the image
+     */
+    public String getImage() {
+        return image;
+    }
+
+    /**
+     * @param image the image to set
+     */
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    /**
+     * @return the start_date
+     */
+    public Date getStart_date() {
+        return start_date;
+    }
+
+    /**
+     * @param start_date the start_date to set
+     */
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
+    }
+
+    /**
+     * @return the end_date
+     */
+    public Date getEnd_date() {
+        return end_date;
+    }
+
+    /**
+     * @param end_date the end_date to set
+     */
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
     }
 }
