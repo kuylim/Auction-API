@@ -5,6 +5,8 @@
  */
 package org.khmeracademy.btb.auc.pojo.entity;
 
+import java.util.Date;
+
 /**
  *
  * @author KUYLIM
@@ -12,9 +14,10 @@ package org.khmeracademy.btb.auc.pojo.entity;
 public class Bid_log {
     private int bid_id;
     private double current_price;
-    private String date;
+    private Date date;
     private int auc_id;
     private int cus_id;
+    private int number_of_bid;
 
     /**
      * @return the bid_id
@@ -47,17 +50,7 @@ public class Bid_log {
     /**
      * @return the date
      */
-    public String getDate() {
-        return date;
-    }
-
-    /**
-     * @param date the date to set
-     */
-    public void setDate(String date) {
-        this.date = date;
-    }
-
+    
     /**
      * @return the auc_id
      */
@@ -84,5 +77,33 @@ public class Bid_log {
      */
     public void setCus_id(int cus_id) {
         this.cus_id = cus_id;
+    }
+
+    /**
+     * @return the date
+     */
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * @param date the date to set
+     */
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    /**
+     * @return the number_of_bid
+     */
+    public int getNumber_of_bid() {
+        return number_of_bid;
+    }
+
+    /**
+     * @param number_of_bid the number_of_bid to set
+     */
+    public void setNumber_of_bid(int number_of_bid) {
+        this.number_of_bid = number_of_bid;
     }
 }
