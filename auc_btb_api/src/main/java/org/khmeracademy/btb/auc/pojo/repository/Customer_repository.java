@@ -47,6 +47,9 @@ public interface Customer_repository {
     @Update("Update auc_customer Set firstname=#{firstname}, lastname=#{lastname}, username=#{username}, phone=#{phone}, email=#{email}, address = #{address}, credit = #{credit}, password = #{password}  where cus_id = #{cus_id}")
     boolean update (Customer customer);
     
+    @Update("Update auc_customer Set credit = #{credit} WHERE cus_id=#{cus_id}")
+    boolean updateBalance(Customer customer);
+    
     @Select("Select * from auc_customer where cus_id = #{id}")
     @Results({
         @Result(property = "cus_id", column = "cus_id"),

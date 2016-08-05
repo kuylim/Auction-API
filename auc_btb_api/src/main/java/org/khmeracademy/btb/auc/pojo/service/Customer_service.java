@@ -15,6 +15,7 @@ import org.khmeracademy.btb.auc.pojo.entity.Customer;
 public interface Customer_service {
     ArrayList<Customer> getCustomers();
     boolean remove(int id);
+    boolean updateBalance(Customer customer);
     boolean save(Customer customer);
     boolean update(Customer customer);
     Customer search(int id);

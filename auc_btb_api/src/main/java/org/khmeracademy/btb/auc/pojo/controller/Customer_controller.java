@@ -157,4 +157,27 @@ public class Customer_controller {
         }
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/update-balance", method = RequestMethod.PUT, produces = "application/json")
+    public ResponseEntity<Map<String, Object>> updateBalance(@RequestBody Customer customer)
+    {
+         Map<String, Object> map = new HashMap<String , Object>();
+         try{
+            
+            if(cus_service.updateBalance(customer)){
+		map.put("MESSAGE", "Customer balance has been updated.");
+		map.put("STATUS", true);
+            }else
+            {
+		map.put("MESSAGE", "Customer balance has not been updated.");
+		map.put("STATUS", false);
+            }
+	}
+        catch(Exception e){
+            map.put("MESSAGE", "Error!");
+            map.put("STATUS", false);
+            e.printStackTrace();
+	}
+	return new ResponseEntity<Map<String,Object>>(map , HttpStatus.OK);
+    }
 }

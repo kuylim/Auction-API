@@ -46,5 +46,10 @@ public class Customer_servicesimpl implements Customer_service{
     public Customer search(int id) {
         return cus_repo.search(id);
     }
+
+    @Override
+    public boolean updateBalance(Customer customer) {
+        return cus_repo.updateBalance(customer);
+    }
     
 }
