@@ -38,7 +38,7 @@ public class Auction_controller {
         Map<String, Object> map = new HashMap<String, Object>();
         try
         {
-            ArrayList<Auction> auction = auc_service.getAuctions();
+            ArrayList<Auction_Detail> auction = auc_service.getAuctions();
             if(!auction.isEmpty())
             {
                 map.put("DATA", auction);

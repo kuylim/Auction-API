@@ -14,7 +14,7 @@ import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
  * @author User
  */
 public interface Auction_service {
-    ArrayList<Auction> getAuctions();
+    ArrayList<Auction_Detail> getAuctions();
     boolean remove(int id);
     boolean save(Auction auction);
     boolean update(Auction auction);

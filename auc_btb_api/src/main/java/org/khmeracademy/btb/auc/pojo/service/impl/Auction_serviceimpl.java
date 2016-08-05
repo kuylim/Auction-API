@@ -24,7 +24,7 @@ public class Auction_serviceimpl implements Auction_service{
     private Auction_repository auc_repo;
     
     @Override
-    public ArrayList<Auction> getAuctions() {
+    public ArrayList<Auction_Detail> getAuctions() {
         return auc_repo.getAuctions();
     }
 
