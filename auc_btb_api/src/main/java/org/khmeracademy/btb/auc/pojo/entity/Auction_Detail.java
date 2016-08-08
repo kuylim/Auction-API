@@ -5,7 +5,14 @@
  */
 package org.khmeracademy.btb.auc.pojo.entity;
 
+import static com.sun.javafx.perf.PerformanceTracker.logEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,6 +41,9 @@ public class Auction_Detail {
     /**
      * @return the product_condition
      */
+    
+    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    
     public String getProduct_condition() {
         return product_condition;
     }
