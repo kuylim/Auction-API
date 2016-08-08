@@ -19,7 +19,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @author KUYLIM
  */
 @Configuration
-@EnableWebMvc
 public class Fileupload_configuration extends WebMvcConfigurerAdapter{
     
     @Bean(name = "multipartResolver")
