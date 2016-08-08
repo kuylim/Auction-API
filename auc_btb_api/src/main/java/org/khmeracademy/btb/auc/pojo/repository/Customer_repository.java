@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.btb.auc.pojo.entity.Customer;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface Customer_repository {
-    @Select("Select * from auc_customer  Where status = 'true'")
+    @Select("Select * from auc_customer  Where status = 'true' offset #{offset} limit #{limit}")
     @Results({
         @Result(property = "cus_id", column = "cus_id"),
         @Result(property = "firstname", column = "firstname"),
@@ -33,7 +34,7 @@ public interface Customer_repository {
         @Result(property = "status", column = "status")
         
     })
-    ArrayList<Customer> getCustomers();
+    ArrayList<Customer> getCustomers(Pagination paginatin);
     
     //delete
     @Update("Update auc_customer Set status = 'false' WHERE cus_id=#{id}")
@@ -63,4 +64,7 @@ public interface Customer_repository {
         @Result(property = "status", column = "status")
     })
     Customer search(int id);  
+    
+    @Select("SELECT COUNT(cus_id) FROM auc_customer Where status = 'true'")
+    int countCustomer();
 }

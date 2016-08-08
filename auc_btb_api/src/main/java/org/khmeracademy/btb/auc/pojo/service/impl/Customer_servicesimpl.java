@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.khmeracademy.btb.auc.pojo.entity.Customer;
 import org.khmeracademy.btb.auc.pojo.repository.Customer_repository;
 import org.khmeracademy.btb.auc.pojo.service.Customer_service;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,8 @@ public class Customer_servicesimpl implements Customer_service{
     private Customer_repository cus_repo;
     
     @Override
-    public ArrayList<Customer> getCustomers() {
-        return cus_repo.getCustomers();
+    public ArrayList<Customer> getCustomers(Pagination paginatin) {
+        return cus_repo.getCustomers(paginatin);
     }
 
     @Override
@@ -50,6 +51,11 @@ public class Customer_servicesimpl implements Customer_service{
     @Override
     public boolean updateBalance(Customer customer) {
         return cus_repo.updateBalance(customer);
+    }
+
+    @Override
+    public int countCustomer() {
+        return cus_repo.countCustomer();
     }
     
 }

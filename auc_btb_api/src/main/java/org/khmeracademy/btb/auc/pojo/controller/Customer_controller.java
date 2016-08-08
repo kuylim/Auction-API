@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.khmeracademy.btb.auc.pojo.entity.Customer;
 import org.khmeracademy.btb.auc.pojo.service.Customer_service;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,17 +34,25 @@ public class Customer_controller {
     
     @RequestMapping(value="/get", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getCustomer()
+    public ResponseEntity<Map<String, Object>> getCustomer(
+            @RequestParam(value = "page", required = false , defaultValue="1") int page 
+            , @RequestParam(value="limit" , required = false , defaultValue="12") int limit)
     {
         Map<String, Object> map = new HashMap<String, Object>();
         try
         {
-            ArrayList<Customer> customer = cus_service.getCustomers();
+            Pagination pagination = new Pagination();
+            pagination.setLimit(limit);
+            pagination.setPage(page);
+            pagination.setTotalCount(cus_service.countCustomer());
+            ArrayList<Customer> customer = cus_service.getCustomers(pagination);
+            
             if(!customer.isEmpty())
             {
                 map.put("DATA", customer);
                 map.put("STATUS", true);
                 map.put("MESSAGE", "DATA FOUND!");
+                map.put("PAGINATION", pagination);
             }
             else
             {

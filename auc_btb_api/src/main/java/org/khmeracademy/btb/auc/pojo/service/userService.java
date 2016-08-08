@@ -17,5 +17,5 @@ public interface userService {
     boolean remove(int id);
     boolean save(User usr);
     boolean update(User usr);
-    User search(int id);
+    User search(int id);  
 }
