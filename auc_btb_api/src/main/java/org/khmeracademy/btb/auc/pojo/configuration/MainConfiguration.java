@@ -41,7 +41,7 @@ public class MainConfiguration extends WebMvcConfigurerAdapter{
         
         @Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
+		registry.addMapping("/api/**")
 				.allowedMethods("GET","POST","DELETE","PUT","OPTIONS","PATCH")
 				.allowedOrigins("*");
 	}
