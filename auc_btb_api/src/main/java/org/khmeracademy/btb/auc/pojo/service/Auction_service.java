@@ -19,4 +19,6 @@ public interface Auction_service {
     boolean save(Auction auction);
     boolean update(Auction auction);
     Auction_Detail search(int id);
+    boolean update_currentprice(double current_price, int id);
+    
 }

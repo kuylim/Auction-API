@@ -158,4 +158,27 @@ public class Auction_controller {
         }
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
+    
+     @RequestMapping(value="/update-current-price/{id}/{price}", method = RequestMethod.PUT, produces = "application/json")
+    public ResponseEntity<Map<String, Object>> update_currentprice (@PathVariable("id") int id, @PathVariable("price") double price)
+    {
+        Map<String, Object> map = new HashMap<String , Object>();
+        try{
+            if(auc_service.update_currentprice(price, id)){
+		map.put("MESSAGE", "Auction has been update current price");
+		map.put("STATUS", true);
+            }
+            else
+            {
+		map.put("MESSAGE", "Auction has not been update current price");
+		map.put("STATUS", false);
+            }
+	}
+        catch(Exception e){
+            map.put("MESSAGE", "Error!");
+            map.put("STATUS", false);
+            e.printStackTrace();
+	}
+        return new ResponseEntity<Map<String,Object>>(map , HttpStatus.OK);
+    }
 }

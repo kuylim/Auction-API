@@ -37,6 +37,7 @@ public class Auction_Detail {
     private String company_profile;
     private int Number_of_bids;
     private int auc_id;
+    private int cus_id;
 
     /**
      * @return the product_condition
@@ -291,5 +292,19 @@ public class Auction_Detail {
      */
     public void setAuc_id(int auc_id) {
         this.auc_id = auc_id;
+    }
+
+    /**
+     * @return the cus_id
+     */
+    public int getCus_id() {
+        return cus_id;
+    }
+
+    /**
+     * @param cus_id the cus_id to set
+     */
+    public void setCus_id(int cus_id) {
+        this.cus_id = cus_id;
     }
 }

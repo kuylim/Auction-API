@@ -47,5 +47,10 @@ public class Auction_serviceimpl implements Auction_service{
     public Auction_Detail search(int id) {
         return auc_repo.search(id);
     }
+
+    @Override
+    public boolean update_currentprice(double current_price, int id) {
+        return auc_repo.update_currentprice(current_price, id);
+    }
     
 }

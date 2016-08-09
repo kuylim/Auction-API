@@ -7,6 +7,7 @@ package org.khmeracademy.btb.auc.pojo.repository;
 
 import java.util.ArrayList;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -130,11 +131,11 @@ public interface Auction_repository {
             "  Count(auc_bid_log.bid_id) as Number_of_bids, \n" +
             "  auc_auction.auc_id\n" +
             "FROM auc_auction\n" +
-            "LEFT JOIN auc_product ON auc_product.pro_id = auc_auction.pro_id\n" +
-            "LEFT JOIN auc_product_owner ON auc_product_owner.owner_id = auc_auction.owner_id\n" +
-            "LEFT JOIN auc_bid_log ON auc_auction.auc_id = auc_bid_log.auc_id\n" +
-            "WHERE  auc_auction.status = 'true'\n" +
-            "AND WHERE auc_auction.auc_id = id " +
+            "LEFT JOIN auc_product ON auc_product.pro_id = auc_auction.pro_id \n" +
+            "LEFT JOIN auc_product_owner ON auc_product_owner.owner_id = auc_auction.owner_id \n" +
+            "LEFT JOIN auc_bid_log ON auc_auction.auc_id = auc_bid_log.auc_id \n" +
+            "WHERE  auc_auction.status = 'true' \n" +
+            "AND auc_auction.auc_id = #{id} " +
             "Group By auc_product.pro_id,auc_auction.auc_id,auc_product_owner.owner_id")
     @Results({
         @Result(property = "product_condition", column = "product_condition"),
@@ -157,4 +158,9 @@ public interface Auction_repository {
         @Result(property = "auc_id", column = "auc_id")
     })
     Auction_Detail search(int id);
+    
+    
+    @Update("Update auc_auction Set current_price=#{current_price} WHERE auc_id=#{id}")
+    boolean update_currentprice(@Param("current_price")double current_price ,@Param("id")int id);
+    
 }
