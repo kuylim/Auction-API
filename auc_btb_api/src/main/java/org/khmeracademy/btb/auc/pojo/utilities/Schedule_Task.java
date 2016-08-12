@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
 import org.khmeracademy.btb.auc.pojo.entity.Winner;
 import org.khmeracademy.btb.auc.pojo.service.Auction_service;
 import org.khmeracademy.btb.auc.pojo.service.Winner_service;
