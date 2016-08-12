@@ -5,7 +5,8 @@
  */
 package org.khmeracademy.btb.auc.pojo.utilities;
 
-import org.khmeracademy.btb.auc.pojo.entity.Customer;
+import java.util.ArrayList;
+import org.khmeracademy.btb.auc.pojo.entity.Winner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -26,15 +27,24 @@ public class Notification_service {
         this.javaMailSender = javaMailSender;
     }
     
-    public void sendNotification() throws MailException
+    public void sendNotification(ArrayList<Winner> winner) throws MailException
     {
-        SimpleMailMessage mail = new SimpleMailMessage();
         
-        mail.setTo("kuylim.tith@gmail.com");
-        mail.setFrom("kuylim.auction@gmail.com");
-        mail.setSubject("Spring Boot Testing");
-        mail.setText("Hello this is testing");
+        for(int i = 0 ; i < winner.size() ;i++)
+        {
+            SimpleMailMessage mail = new SimpleMailMessage();
         
-        javaMailSender.send(mail);
+            mail.setTo(winner.get(i).getCus_email());
+            mail.setFrom("kuylim.auction@gmail.com");
+            mail.setSubject("Win Auction");
+            mail.setText("Dear,\n\n"
+                         + winner.get(i).getCus_firstname() + "\n" 
+                         + "\tCongratulation! You have win an" + winner.get(i).getPro_name() + ". Your auction code is : " + winner.get(i).getAuc_id() + "\n" 
+                         + "Please come to check out your product at our office.\n\n"
+                         + "Regard,\n\n"
+                         + "Auction Team.");
+
+            javaMailSender.send(mail);
+        }  
     }
 }
