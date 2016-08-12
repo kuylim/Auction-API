@@ -57,5 +57,10 @@ public class Customer_servicesimpl implements Customer_service{
     public int countCustomer() {
         return cus_repo.countCustomer();
     }
+
+    @Override
+    public Customer findUserByEmail(String email) {
+        return cus_repo.findUserByEmail(email);
+    }
     
 }

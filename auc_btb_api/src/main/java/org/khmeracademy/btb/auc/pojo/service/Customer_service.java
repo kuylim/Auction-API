@@ -21,4 +21,5 @@ public interface Customer_service {
     boolean update(Customer customer);
     Customer search(int id);
     int countCustomer();
+    Customer findUserByEmail(String email);
 }

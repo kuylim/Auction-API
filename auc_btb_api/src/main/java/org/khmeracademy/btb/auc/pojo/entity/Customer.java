@@ -20,6 +20,7 @@ public class Customer {
     private double credit;
     private String password;
     private boolean status;
+    private String role;
 
     /**
      * @return the cus_id
@@ -159,5 +160,19 @@ public class Customer {
      */
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    /**
+     * @return the role
+     */
+    public String getRole() {
+        return role;
+    }
+
+    /**
+     * @param role the role to set
+     */
+    public void setRole(String role) {
+        this.role = role;
     }
 }

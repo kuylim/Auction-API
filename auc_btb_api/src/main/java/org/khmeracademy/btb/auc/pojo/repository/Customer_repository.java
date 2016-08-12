@@ -7,6 +7,7 @@ package org.khmeracademy.btb.auc.pojo.repository;
 
 import java.util.ArrayList;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -67,4 +68,14 @@ public interface Customer_repository {
     
     @Select("SELECT COUNT(cus_id) FROM auc_customer Where status = 'true'")
     int countCustomer();
+    
+    @Select("SELECT cus_id, username, password, email, role FROM auc_customer Where status = 'true' AND email = #{userEmail}")
+	@Results(value = {
+			@Result(property = "cus_id" , column = "cus_id"),
+			@Result(property = "username" , column = "username"),
+			@Result(property = "email" , column = "email"),
+			@Result(property = "password" , column = "password"),
+			@Result(property = "role" , column = "role")
+        })
+	public Customer findUserByEmail(@Param("userEmail") String userEmail);
 }

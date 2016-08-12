@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import org.khmeracademy.btb.auc.pojo.entity.Customer;
+import org.khmeracademy.btb.auc.pojo.entity.UserLogin;
 import org.khmeracademy.btb.auc.pojo.service.Customer_service;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,4 +191,22 @@ public class Customer_controller {
 	}
 	return new ResponseEntity<Map<String,Object>>(map , HttpStatus.OK);
     }
+    
+    @RequestMapping(value="/find-user-by-email", method = RequestMethod.POST , produces = "application/json")
+	public ResponseEntity<Map<String , Object>> findUserByEmail(@RequestBody UserLogin login){
+		Map< String , Object> map = new HashMap<String , Object>();
+		try{
+                    map.put("STATUS",true);
+                    map.put("MESSAGE","Success");
+                    map.put("DATA", cus_service.findUserByEmail(login.getEmail()) );
+                    System.out.println(map);
+			
+		}catch(Exception e){
+			map.put("STATUS",false);
+			map.put("MESSAGE", "Something is broken. Please contact to developers team!");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+	}
+    
 }
