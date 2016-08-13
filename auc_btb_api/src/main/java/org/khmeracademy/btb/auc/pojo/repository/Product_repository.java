@@ -55,4 +55,16 @@ public interface Product_repository {
         @Result(property = "image", column = "image")
     })
     Product search(int id);
+    
+    @Select("Select * from auc_product  Where status = 'true' Order By pro_id DESC LIMIT 1")
+    @Results({
+        @Result(property = "pro_id", column = "pro_id"),
+        @Result(property = "name", column = "name"),
+        @Result(property = "pro_info", column = "pro_info"),
+        @Result(property = "status", column = "status"),
+        @Result(property = "cat_id", column = "cat_id"),
+        @Result(property = "brand_id", column = "brand_id"),
+        @Result(property = "image", column = "image")
+    })
+    Product getLastest();
 }

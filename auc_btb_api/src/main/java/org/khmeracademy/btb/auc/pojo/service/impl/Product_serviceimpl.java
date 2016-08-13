@@ -46,5 +46,10 @@ public class Product_serviceimpl implements Product_service{
     public Product search(int id) {
         return pro_repo.search(id);
     }
+
+    @Override
+    public Product getLatest() {
+        return pro_repo.getLastest();
+    }
     
 }

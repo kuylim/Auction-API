@@ -157,4 +157,34 @@ public class Product_Controller {
         }
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
+    
+    
+     @RequestMapping(value="/getlatest", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getlastest()
+    {
+         Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            Product pro = pro_service.getLatest();
+            if(pro!=null)
+            {
+                map.put("DATA", pro);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
 }

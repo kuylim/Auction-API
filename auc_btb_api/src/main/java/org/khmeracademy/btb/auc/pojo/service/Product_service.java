@@ -18,4 +18,5 @@ public interface Product_service {
     boolean save(Product pro);
     boolean update(Product pro);
     Product search(int id);
+    Product getLatest();
 }

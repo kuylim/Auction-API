@@ -6,28 +6,41 @@
 package org.khmeracademy.btb.auc.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
 /**
  *
  * @author KUYLIM
  */
 public class Image {
-    @JsonProperty("ORIGINAL_IMAGE")
-    private String originalImage;
-    @JsonProperty("THUMBNAIL_IMAGE")
-    
-    private String thumbnailImage;
+        private List<String> names;
+        private String projectPath;
+        private String serverPath;
+        private String message;
+
+        public List<String> getNames() {
+            return names;
+        }
+        public void setNames(List<String> names) {
+            this.names = names;
+        }
+	public String getServerPath() {
+		return serverPath;
+	}
+	public void setServerPath(String serverPath) {
+		this.serverPath = serverPath;
+	}
+	public String getProjectPath() {
+		return projectPath;
+	}
+	public void setProjectPath(String projectPath) {
+		this.projectPath = projectPath;
+	}
 	
-    public String getOriginalImage() {
-	return originalImage;
-    }
-    public void setOriginalImage(String originalImage) {
-	this.originalImage = originalImage;
-    }
-    public String getThumbnailImage() {
-	return thumbnailImage;
-    }
-    public void setThumbnailImage(String thumbnailImage) {
-	this.thumbnailImage = thumbnailImage;
-    }
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
 }
