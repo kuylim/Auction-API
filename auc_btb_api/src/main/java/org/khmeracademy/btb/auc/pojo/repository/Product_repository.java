@@ -27,8 +27,7 @@ public interface Product_repository {
         @Result(property = "pro_info", column = "pro_info"),
         @Result(property = "status", column = "status"),
         @Result(property = "cat_id", column = "cat_id"),
-        @Result(property = "brand_id", column = "brand_id"),
-        @Result(property = "image", column = "image")
+        @Result(property = "brand_id", column = "brand_id")
     })
     ArrayList<Product> getProducts();
     
@@ -37,11 +36,11 @@ public interface Product_repository {
     boolean remove(int id);
     
     
-    @Insert("Insert Into auc_product (name, pro_info, status, cat_id, brand_id, image) values (#{name}, #{pro_info}, 'true', #{cat_id}, #{brand_id}, #{image})")
+    @Insert("Insert Into auc_product (name, pro_info, status, cat_id, brand_id) values (#{name}, #{pro_info}, 'true', #{cat_id}, #{brand_id})")
     boolean add(Product pro);
     
    
-    @Update("Update auc_product Set name=#{name}, pro_info=#{pro_info}, cat_id=#{cat_id}, brand_id=#{brand_id}, image=#{image} where pro_id = #{pro_id}")
+    @Update("Update auc_product Set name=#{name}, pro_info=#{pro_info}, cat_id=#{cat_id}, brand_id=#{brand_id} where pro_id = #{pro_id}")
     boolean update (Product pro);
     
     @Select("Select * from auc_product where pro_id = #{id}")
@@ -51,8 +50,7 @@ public interface Product_repository {
         @Result(property = "pro_info", column = "pro_info"),
         @Result(property = "status", column = "status"),
         @Result(property = "cat_id", column = "cat_id"),
-        @Result(property = "brand_id", column = "brand_id"),
-        @Result(property = "image", column = "image")
+        @Result(property = "brand_id", column = "brand_id")
     })
     Product search(int id);
     
@@ -63,8 +61,7 @@ public interface Product_repository {
         @Result(property = "pro_info", column = "pro_info"),
         @Result(property = "status", column = "status"),
         @Result(property = "cat_id", column = "cat_id"),
-        @Result(property = "brand_id", column = "brand_id"),
-        @Result(property = "image", column = "image")
+        @Result(property = "brand_id", column = "brand_id")
     })
     Product getLastest();
 }

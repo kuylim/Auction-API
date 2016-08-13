@@ -16,7 +16,6 @@ public class Product {
     private boolean status;
     private int cat_id;
     private int brand_id;
-    private String image;
 
     /**
      * @return the pro_id
@@ -100,19 +99,5 @@ public class Product {
      */
     public void setBrand_id(int brand_id) {
         this.brand_id = brand_id;
-    }
-
-    /**
-     * @return the image
-     */
-    public String getImage() {
-        return image;
-    }
-
-    /**
-     * @param image the image to set
-     */
-    public void setImage(String image) {
-        this.image = image;
     }
 }
