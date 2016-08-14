@@ -5,11 +5,16 @@
  */
 package org.khmeracademy.btb.auc.pojo.service.impl;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
 import org.khmeracademy.btb.auc.pojo.entity.Image;
 import org.khmeracademy.btb.auc.pojo.repository.UploadImage_repository;
 import org.khmeracademy.btb.auc.pojo.service.Product_service;
@@ -41,23 +46,40 @@ public class UploadImage_serviceimpl implements UploadImage_service{
         {
 			
             if(folder=="" || folder==null)
-				folder = "default";
+                folder = "default";
             String UPLOAD_PATH = "/opt/project/" + folder;
+            String THUMBNAIL_PATH = "/opt/project/thumnail/";
 			
             java.io.File path = new java.io.File(UPLOAD_PATH);
+            java.io.File thum_path = new java.io.File(THUMBNAIL_PATH);
             if(!path.exists())
                 path.mkdirs();
+            if (!thum_path.exists()) {
+		thum_path.mkdirs();
+            }
 			
-		List<String> names = new ArrayList<>();
-		for(MultipartFile file: files)
-                {
+            List<String> names = new ArrayList<>();
+            for(MultipartFile file: files)
+            {
 		String fileName = file.getOriginalFilename();
 		fileName = UUID.randomUUID() + "." + fileName.substring(fileName.lastIndexOf(".") + 1);
                     try 
                     {
+                        byte[] bytes = file.getBytes();
 			Files.copy(file.getInputStream(), Paths.get(UPLOAD_PATH, fileName)); //copy path name to server
+                        try {
+                                //TODO: USING THUMBNAILS TO RESIZE THE IMAGE
+                                
+				Thumbnails.of(UPLOAD_PATH + "/" + fileName)
+				.forceSize(500, 800)
+				.toFiles(thum_path, Rename.NO_CHANGE);
+				} catch (Exception ex) {
+                                   BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(THUMBNAIL_PATH +  fileName)));
+                                   stream.write(bytes);
+                                    stream.close();
+				}
 			names.add(fileName); // add file name
-                        imRepo.upload(pro_service.getLatest().getPro_id(), fileName);
+                        imRepo.upload(pro_service.getLatest().getPro_id(), fileName); // upload path to database
                     } 
                     catch (Exception e) { 
 			
@@ -67,8 +89,8 @@ public class UploadImage_serviceimpl implements UploadImage_service{
 		uploadImage.setServerPath(UPLOAD_PATH);
 		uploadImage.setNames(names);
 		uploadImage.setMessage("File has been uploaded successfully!!!");
-		}
-		return uploadImage;
+            }
+	return uploadImage;
     }
     
 }

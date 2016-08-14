@@ -22,7 +22,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
    
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	registry.addResourceHandler("/resources/**").addResourceLocations("file:/opt/project/");
+	registry.addResourceHandler("/resources/**").addResourceLocations("file:/opt/project/thumnail/");
     }
     
 

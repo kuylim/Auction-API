@@ -17,6 +17,7 @@ public class Image {
         private String projectPath;
         private String serverPath;
         private String message;
+        private String img_path;
 
         public List<String> getNames() {
             return names;
@@ -43,4 +44,18 @@ public class Image {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+    /**
+     * @return the img_path
+     */
+    public String getImg_path() {
+        return img_path;
+    }
+
+    /**
+     * @param img_path the img_path to set
+     */
+    public void setImg_path(String img_path) {
+        this.img_path = img_path;
+    }
 }

@@ -7,6 +7,7 @@ package org.khmeracademy.btb.auc.pojo.repository;
 
 import java.util.ArrayList;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -14,6 +15,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.btb.auc.pojo.entity.Auction;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
+import org.khmeracademy.btb.auc.pojo.entity.Image;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -68,10 +70,13 @@ public interface Auction_repository {
         @Result(property = "company_profile", column = "company_profile"),
         @Result(property = "Number_of_bids", column = "Number_of_bids"),
         @Result(property = "auc_id", column = "auc_id"),
+        @Result(property = "owner_id", column = "owner_id"),
         @Result(property = "pro_id", column = "pro_id"),
-        @Result(property = "owner_id", column = "owner_id")
+       @Result(property = "images", column = "pro_id", many = @Many(select = "findImages")
+       )
     })
     ArrayList<Auction_Detail> getAuctions();
+    
     
     //delete
     @Update("Update auc_auction Set status = 'false' WHERE auc_id=#{id}")
@@ -133,6 +138,7 @@ public interface Auction_repository {
             "  auc_product_owner.address, \n" +
             "  auc_product_owner.company_profile, \n" +
             "  Count(auc_bid_log.bid_id) as Number_of_bids, \n" +
+            "  auc_product.pro_id, \n" +
             "  auc_auction.auc_id\n" +
             "FROM auc_auction\n" +
             "LEFT JOIN auc_product ON auc_product.pro_id = auc_auction.pro_id \n" +
@@ -159,12 +165,22 @@ public interface Auction_repository {
         @Result(property = "address", column = "address"),
         @Result(property = "company_profile", column = "company_profile"),
         @Result(property = "Number_of_bids", column = "Number_of_bids"),
-        @Result(property = "auc_id", column = "auc_id")
+        @Result(property = "auc_id", column = "auc_id"),
+        @Result(property = "pro_id", column = "pro_id"),
+        @Result(property = "images", column = "pro_id", many = @Many(select = "findImages"))
+        
     })
     Auction_Detail search(int id);
     
     
     @Update("Update auc_auction Set current_price=#{current_price} WHERE auc_id=#{id}")
     boolean update_currentprice(@Param("current_price")double current_price ,@Param("id")int id);
+    
+    
+    @Select("SELECT img_path FROM auc_images WHERE pro_id = #{pro_id}")
+    @Results(value = {
+        @Result(property = "img_path", column = "img_path")
+    })
+    public ArrayList<Image> findImages(int pro_id);
     
 }

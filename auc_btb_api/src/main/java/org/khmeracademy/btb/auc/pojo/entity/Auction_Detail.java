@@ -5,14 +5,10 @@
  */
 package org.khmeracademy.btb.auc.pojo.entity;
 
-import static com.sun.javafx.perf.PerformanceTracker.logEvent;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 
 /**
  *
@@ -40,12 +36,13 @@ public class Auction_Detail {
     private int cus_id;
     private int owner_id;
     private int pro_id;
+    private List<Image> images;
 
     /**
      * @return the product_condition
      */
     
-    private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+   // private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     
     public String getProduct_condition() {
         return product_condition;
@@ -327,14 +324,42 @@ public class Auction_Detail {
     /**
      * @return the formatter
      */
-    public DateFormat getFormatter() {
-        return formatter;
+//    public DateFormat getFormatter() {
+//        return formatter;
+//    }
+//
+//    /**
+//     * @param formatter the formatter to set
+//     */
+//    public void setFormatter(DateFormat formatter) {
+//        this.formatter = formatter;
+//    }
+
+    /**
+     * @return the owner_id
+     */
+    public int getOwner_id() {
+        return owner_id;
     }
 
     /**
-     * @param formatter the formatter to set
+     * @param owner_id the owner_id to set
      */
-    public void setFormatter(DateFormat formatter) {
-        this.formatter = formatter;
+    public void setOwner_id(int owner_id) {
+        this.owner_id = owner_id;
+    }
+
+    /**
+     * @return the images
+     */
+    public List<Image> getImages() {
+        return images;
+    }
+
+    /**
+     * @param images the images to set
+     */
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 }
