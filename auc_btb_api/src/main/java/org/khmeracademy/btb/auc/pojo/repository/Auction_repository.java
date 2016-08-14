@@ -40,7 +40,7 @@ public interface Auction_repository {
             "  auc_product_owner.address, \n" +
             "  auc_product_owner.company_profile, \n" +
             "  auc_product_owner.owner_id, \n" +
-            "  auc_product.pro_id \n" +
+            "  auc_product.pro_id, \n" +
             "  Count(auc_bid_log.bid_id) as Number_of_bids, \n" +
             "  auc_auction.auc_id\n" +
             "FROM auc_auction\n" +
