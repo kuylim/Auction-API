@@ -38,12 +38,14 @@ public class Auction_Detail {
     private int Number_of_bids;
     private int auc_id;
     private int cus_id;
+    private int owner_id;
+    private int pro_id;
 
     /**
      * @return the product_condition
      */
     
-    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     
     public String getProduct_condition() {
         return product_condition;
@@ -306,5 +308,33 @@ public class Auction_Detail {
      */
     public void setCus_id(int cus_id) {
         this.cus_id = cus_id;
+    }
+
+    /**
+     * @return the pro_id
+     */
+    public int getPro_id() {
+        return pro_id;
+    }
+
+    /**
+     * @param pro_id the pro_id to set
+     */
+    public void setPro_id(int pro_id) {
+        this.pro_id = pro_id;
+    }
+
+    /**
+     * @return the formatter
+     */
+    public DateFormat getFormatter() {
+        return formatter;
+    }
+
+    /**
+     * @param formatter the formatter to set
+     */
+    public void setFormatter(DateFormat formatter) {
+        this.formatter = formatter;
     }
 }

@@ -39,6 +39,8 @@ public interface Auction_repository {
             "  auc_product_owner.email, \n" +
             "  auc_product_owner.address, \n" +
             "  auc_product_owner.company_profile, \n" +
+            "  auc_product_owner.owner_id, \n" +
+            "  auc_product.pro_id \n" +
             "  Count(auc_bid_log.bid_id) as Number_of_bids, \n" +
             "  auc_auction.auc_id\n" +
             "FROM auc_auction\n" +
@@ -65,7 +67,9 @@ public interface Auction_repository {
         @Result(property = "address", column = "address"),
         @Result(property = "company_profile", column = "company_profile"),
         @Result(property = "Number_of_bids", column = "Number_of_bids"),
-        @Result(property = "auc_id", column = "auc_id")
+        @Result(property = "auc_id", column = "auc_id"),
+        @Result(property = "pro_id", column = "pro_id"),
+        @Result(property = "owner_id", column = "owner_id")
     })
     ArrayList<Auction_Detail> getAuctions();
     

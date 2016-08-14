@@ -26,6 +26,7 @@ public class Auction {
     private int pro_id;
     private String name;
     private String image;
+    
 
     /**
      * @return the auc_id
