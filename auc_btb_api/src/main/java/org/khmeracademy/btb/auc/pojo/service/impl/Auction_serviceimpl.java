@@ -10,6 +10,7 @@ import org.khmeracademy.btb.auc.pojo.entity.Auction;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
 import org.khmeracademy.btb.auc.pojo.repository.Auction_repository;
 import org.khmeracademy.btb.auc.pojo.service.Auction_service;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,8 @@ public class Auction_serviceimpl implements Auction_service{
     private Auction_repository auc_repo;
     
     @Override
-    public ArrayList<Auction_Detail> getAuctions() {
-        return auc_repo.getAuctions();
+    public ArrayList<Auction_Detail> getAuctions(Pagination pagination) {
+        return auc_repo.getAuctions(pagination);
     }
 
     @Override
@@ -51,6 +52,11 @@ public class Auction_serviceimpl implements Auction_service{
     @Override
     public boolean update_currentprice(double current_price, int id) {
         return auc_repo.update_currentprice(current_price, id);
+    }
+
+    @Override
+    public int countAuction() {
+        return auc_repo.countAuction();
     }
     
 }

@@ -8,17 +8,18 @@ package org.khmeracademy.btb.auc.pojo.service;
 import java.util.ArrayList;
 import org.khmeracademy.btb.auc.pojo.entity.Auction;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 
 /**
  *
  * @author User
  */
 public interface Auction_service {
-    ArrayList<Auction_Detail> getAuctions();
+    ArrayList<Auction_Detail> getAuctions(Pagination pagination);
     boolean remove(int id);
     boolean save(Auction auction);
     boolean update(Auction auction);
     Auction_Detail search(int id);
     boolean update_currentprice(double current_price, int id);
-    
+    int countAuction();
 }

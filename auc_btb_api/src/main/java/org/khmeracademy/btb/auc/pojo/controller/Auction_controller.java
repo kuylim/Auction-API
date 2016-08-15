@@ -11,6 +11,7 @@ import java.util.Map;
 import org.khmeracademy.btb.auc.pojo.entity.Auction;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
 import org.khmeracademy.btb.auc.pojo.service.Auction_service;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,17 +35,23 @@ public class Auction_controller {
     
     @RequestMapping(value="/get", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getAuctions()
+    public ResponseEntity<Map<String, Object>> getAuctions(@RequestParam(value = "page", required = false , defaultValue="1") int page 
+            , @RequestParam(value="limit" , required = false , defaultValue="6") int limit)
     {
         Map<String, Object> map = new HashMap<String, Object>();
         try
         {
-            ArrayList<Auction_Detail> auction = auc_service.getAuctions();
+            Pagination pagination = new Pagination();
+            pagination.setLimit(limit);
+            pagination.setPage(page);
+            pagination.setTotalCount(auc_service.countAuction());
+            ArrayList<Auction_Detail> auction = auc_service.getAuctions(pagination);
             if(!auction.isEmpty())
             {
                 map.put("DATA", auction);
                 map.put("STATUS", true);
                 map.put("MESSAGE", "DATA FOUND!");
+                map.put("PAGINATION", pagination);
             }
             else
             {

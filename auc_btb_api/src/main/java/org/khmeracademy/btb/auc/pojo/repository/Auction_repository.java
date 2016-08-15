@@ -16,6 +16,7 @@ import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.btb.auc.pojo.entity.Auction;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
 import org.khmeracademy.btb.auc.pojo.entity.Image;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -50,7 +51,8 @@ public interface Auction_repository {
             "LEFT JOIN auc_product_owner ON auc_product_owner.owner_id = auc_auction.owner_id\n" +
             "LEFT JOIN auc_bid_log ON auc_auction.auc_id = auc_bid_log.auc_id\n" +
             "WHERE  auc_auction.status = 'true'\n" +
-            "Group By auc_product.pro_id,auc_auction.auc_id,auc_product_owner.owner_id")
+            "Group By auc_product.pro_id,auc_auction.auc_id,auc_product_owner.owner_id "
+            + "offset #{offset} limit #{limit}")
     @Results({
         @Result(property = "product_condition", column = "product_condition"),
         @Result(property = "start_price", column = "start_price"),
@@ -75,7 +77,7 @@ public interface Auction_repository {
        @Result(property = "images", column = "pro_id", many = @Many(select = "findImages")
        )
     })
-    ArrayList<Auction_Detail> getAuctions();
+    ArrayList<Auction_Detail> getAuctions(Pagination pagination);
     
     
     //delete
@@ -182,5 +184,8 @@ public interface Auction_repository {
         @Result(property = "img_path", column = "img_path")
     })
     public ArrayList<Image> findImages(int pro_id);
+    
+    @Select("SELECT COUNT(auc_id) FROM auc_auction Where status = 'true'")
+    int countAuction();
     
 }
