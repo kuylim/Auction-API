@@ -20,11 +20,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface Winner_repository {
     @Select("SELECT \n" +
-        "  auc_customer.firstname AS cus_firstname, \n" +
-        "  auc_customer.lastname AS cus_lastname, \n" +
-        "  auc_customer.phone AS cus_phone, \n" +
-        "  auc_customer.email AS cus_email, \n" +
-        "  auc_customer.address AS cus_address, \n" +
+        "  auc_user.firstname AS cus_firstname, \n" +
+        "  auc_user.lastname AS cus_lastname, \n" +
+        "  auc_user.phone AS cus_phone, \n" +
+        "  auc_user.email AS cus_email, \n" +
+        "  auc_user.address AS cus_address, \n" +
         "  auc_product_owner.firstname AS owner_firstname, \n" +
         "  auc_product_owner.lastname AS owner_lastname, \n" +
         "  auc_product_owner.phone AS owner_phone, \n" +
@@ -34,18 +34,18 @@ public interface Winner_repository {
         "  auc_auction.status, \n" +
         "  auc_auction.current_price, \n" +
         "  auc_bid_log.bid_id, \n" +
-        "  auc_customer.cus_id,\n" +
+        "  auc_user.usr_id,\n" +
         "  auc_product.name AS pro_name, \n" +
         "  auc_auction.auc_id \n" +
         "FROM \n" +
         "  public.auc_auction, \n" +
         "  public.auc_bid_log, \n" +
-        "  public.auc_customer, \n" +
+        "  public.auc_user, \n" +
         "  public.auc_product_owner,\n" +
         "  auc_product\n" +
         "WHERE \n" +
         "  auc_auction.auc_id = auc_bid_log.auc_id AND\n" +
-        "  auc_customer.cus_id = auc_bid_log.cus_id AND\n" +
+        "  auc_user.usr_id = auc_bid_log.usr_id AND\n" +
         "  auc_product_owner.owner_id = auc_auction.owner_id AND \n" +
         "  auc_auction.current_price = auc_bid_log.current_price AND \n" +
         "  auc_product.pro_id = auc_auction.pro_id AND \n" +
@@ -66,7 +66,7 @@ public interface Winner_repository {
         @Result(property = "status", column = "status"),
         @Result(property = "current_price", column = "current_price"),
         @Result(property = "bid_id", column = "bid_id"),
-        @Result(property = "cus_id", column = "cus_id"),
+        @Result(property = "cus_id", column = "usr_id"),
         @Result(property = "pro_name", column = "pro_name"),
         @Result(property = "auc_id", column = "auc_id")   
         

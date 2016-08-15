@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface Bid_log_repository {
      
-    @Insert("Insert Into auc_bid_log (current_price, date, auc_id, cus_id) values (#{current_price}, #{date}, #{auc_id}, #{cus_id})")
+    @Insert("Insert Into auc_bid_log (current_price, date, auc_id, usr_id) values (#{current_price}, #{date}, #{auc_id}, #{usr_id})")
     boolean add(Bid_log bid);
     
     @Select("SELECT \n" +

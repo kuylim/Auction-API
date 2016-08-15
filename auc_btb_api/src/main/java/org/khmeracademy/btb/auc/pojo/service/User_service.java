@@ -6,20 +6,21 @@
 package org.khmeracademy.btb.auc.pojo.service;
 
 import java.util.ArrayList;
-import org.khmeracademy.btb.auc.pojo.entity.Customer;
+import org.khmeracademy.btb.auc.pojo.entity.User;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 
 /**
  *
  * @author User
  */
-public interface Customer_service {
-    ArrayList<Customer> getCustomers(Pagination paginatin);
+public interface User_service {
+    ArrayList<User> getUsers(Pagination paginatin);
     boolean remove(int id);
-    boolean updateBalance(Customer customer);
-    boolean save(Customer customer);
-    boolean update(Customer customer);
-    Customer search(int id);
-    int countCustomer();
-    Customer findUserByEmail(String email);
+    boolean updateBalance(User customer);
+    boolean save_user(User user);
+    boolean save_admin(User user);
+    boolean update(User user);
+    User search(int id);
+    int countUsers();
+    User findUserByEmail(String email);
 }

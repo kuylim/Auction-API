@@ -16,7 +16,7 @@ public class Bid_log {
     private double current_price;
     private Date date;
     private int auc_id;
-    private int cus_id;
+    private int usr_id;
     private int number_of_bid;
 
     /**
@@ -66,17 +66,17 @@ public class Bid_log {
     }
 
     /**
-     * @return the cus_id
+     * @return the usr_id
      */
     public int getCus_id() {
-        return cus_id;
+        return usr_id;
     }
 
     /**
-     * @param cus_id the cus_id to set
+     * @param cus_id the usr_id to set
      */
-    public void setCus_id(int cus_id) {
-        this.cus_id = cus_id;
+    public void setCus_id(int usr_id) {
+        this.usr_id = usr_id;
     }
 
     /**

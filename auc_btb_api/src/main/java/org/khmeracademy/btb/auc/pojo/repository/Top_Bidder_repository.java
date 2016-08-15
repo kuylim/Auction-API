@@ -10,7 +10,6 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.khmeracademy.btb.auc.pojo.entity.Top_Bidder;
-import org.khmeracademy.btb.auc.pojo.entity.User;
 
 /**
  *

@@ -10,25 +10,58 @@ package org.khmeracademy.btb.auc.pojo.entity;
  * @author KUYLIM
  */
 public class User {
-    private int id;
+    private int usr_id;
+    private String firstname;
+    private String lastname;
     private String username;
-    private String password;
     private String phone;
     private String email;
+    private String address;
+    private double credit;
+    private String password;
     private boolean status;
+    private String role;
 
     /**
-     * @return the id
+     * @return the usr_id
      */
-    public int getId() {
-        return id;
+    public int getCus_id() {
+        return usr_id;
     }
 
     /**
-     * @param id the id to set
+     * @param usr_id the cus_id to set
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setCus_id(int usr_id) {
+        this.usr_id = usr_id;
+    }
+
+    /**
+     * @return the firstname
+     */
+    public String getFirstname() {
+        return firstname;
+    }
+
+    /**
+     * @param firstname the firstname to set
+     */
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    /**
+     * @return the lastname
+     */
+    public String getLastname() {
+        return lastname;
+    }
+
+    /**
+     * @param lastname the lastname to set
+     */
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     /**
@@ -43,20 +76,6 @@ public class User {
      */
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     /**
@@ -88,6 +107,48 @@ public class User {
     }
 
     /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     * @return the credit
+     */
+    public double getCredit() {
+        return credit;
+    }
+
+    /**
+     * @param credit the credit to set
+     */
+    public void setCredit(double credit) {
+        this.credit = credit;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
      * @return the status
      */
     public boolean isStatus() {
@@ -100,5 +161,18 @@ public class User {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
+
+    /**
+     * @return the role
+     */
+    public String getRole() {
+        return role;
+    }
+
+    /**
+     * @param role the role to set
+     */
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
