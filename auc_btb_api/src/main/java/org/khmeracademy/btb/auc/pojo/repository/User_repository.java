@@ -42,7 +42,7 @@ public interface User_repository {
     boolean remove(int id);
     
     
-    @Insert("Insert Into auc_user (firstname, lastname, username, phone, email, address, credit, password, status, role) values (#{firstname}, #{lastname}, #{username}, #{phone}, #{email}, #{address}, #{credit}, #{password}, 'true', 'ROLE_USER')")
+    @Insert("Insert Into auc_user (firstname, lastname, username, phone, email, address, credit, password, status, role) values (#{firstname}, #{lastname}, #{username}, #{phone}, #{email}, #{address}, 4000, #{password}, 'true', 'ROLE_USER')")
     boolean add_user(User customer);
     
     @Insert("Insert Into auc_user (firstname, lastname, username, phone, email, address, credit, password, status, role) values (#{firstname}, #{lastname}, #{username}, #{phone}, #{email}, #{address}, #{credit}, #{password}, 'true', 'ROLE_ADMIN')")
