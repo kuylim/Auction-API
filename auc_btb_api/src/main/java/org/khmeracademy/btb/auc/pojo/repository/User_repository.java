@@ -79,5 +79,5 @@ public interface User_repository {
 			@Result(property = "password" , column = "password"),
 			@Result(property = "role" , column = "role")
         })
-    public User findUserByEmail(@Param("userEmail") String userEmail);
+    User findUserByEmail(@Param("userEmail") String userEmail);
 }
