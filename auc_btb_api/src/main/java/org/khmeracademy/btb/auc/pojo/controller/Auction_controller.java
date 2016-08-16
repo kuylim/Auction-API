@@ -67,6 +67,42 @@ public class Auction_controller {
         }
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
+    
+    @RequestMapping(value="/get-by-category/{cat_id}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getAuctionsByCategory(@RequestParam(value = "page", required = false , defaultValue="1") int page 
+            , @RequestParam(value="limit" , required = false , defaultValue="6") int limit, @PathVariable("cat_id") int id)
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            Pagination pagination = new Pagination();
+            pagination.setLimit(limit);
+            pagination.setPage(page);
+            pagination.setTotalCount(auc_service.countAuctionByCategory(id));
+            ArrayList<Auction_Detail> auction = auc_service.getAuctionsByCategory(pagination,id);
+            if(!auction.isEmpty())
+            {
+                map.put("DATA", auction);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+                map.put("PAGINATION", pagination);
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
 //    
     @RequestMapping(value="/delete/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<Map<String, Object>> delete (@PathVariable("id") int id)

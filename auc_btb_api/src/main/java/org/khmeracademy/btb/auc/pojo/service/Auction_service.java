@@ -22,4 +22,6 @@ public interface Auction_service {
     Auction_Detail search(int id);
     boolean update_currentprice(double current_price, int id);
     int countAuction();
+    ArrayList<Auction_Detail> getAuctionsByCategory(Pagination pagination, int id);
+    int countAuctionByCategory(int id);
 }

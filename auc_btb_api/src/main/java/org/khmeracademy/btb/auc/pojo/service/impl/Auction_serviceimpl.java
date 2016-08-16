@@ -58,5 +58,15 @@ public class Auction_serviceimpl implements Auction_service{
     public int countAuction() {
         return auc_repo.countAuction();
     }
+
+    @Override
+    public ArrayList<Auction_Detail> getAuctionsByCategory(Pagination pagination, int id) {
+        return auc_repo.getAuctionsByCategory(pagination, id);
+    }
+
+    @Override
+    public int countAuctionByCategory(int id) {
+        return auc_repo.countAuctionByCategory(id);
+    }
     
 }
