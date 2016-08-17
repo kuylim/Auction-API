@@ -32,12 +32,12 @@ public class UploadImage_serviceimpl implements UploadImage_service{
 
     @Autowired
     private UploadImage_repository imRepo;
-    
-    @Autowired
-    private Product_service pro_service;
+//    
+//    @Autowired
+//    private Product_service pro_service;
     
     @Override
-    public Image upload(List<MultipartFile> files, String folder) {
+    public Image upload(int pro_id ,List<MultipartFile> files) {
         Image uploadImage = new Image();
         if(files.isEmpty()){
 	
@@ -45,9 +45,9 @@ public class UploadImage_serviceimpl implements UploadImage_service{
         else
         {
 			
-            if(folder=="" || folder==null)
-                folder = "default";
-            String UPLOAD_PATH = "/opt/project/" + folder;
+//            if(folder=="" || folder==null)
+//                folder = "default";
+            String UPLOAD_PATH = "/opt/project/default";
             String THUMBNAIL_PATH = "/opt/project/thumnail/";
 			
             java.io.File path = new java.io.File(UPLOAD_PATH);
@@ -79,13 +79,13 @@ public class UploadImage_serviceimpl implements UploadImage_service{
                                     stream.close();
 				}
 			names.add(fileName); // add file name
-                        imRepo.upload(pro_service.getLatest().getPro_id(), fileName); // upload path to database
+                        imRepo.upload(pro_id, fileName); // upload path to database
                     } 
                     catch (Exception e) { 
 			
                     }
 		}
-                uploadImage.setProjectPath("/resources/" + folder);
+                uploadImage.setProjectPath("/resources/");
 		uploadImage.setServerPath(UPLOAD_PATH);
 		uploadImage.setNames(names);
 		uploadImage.setMessage("File has been uploaded successfully!!!");

@@ -6,11 +6,14 @@
 package org.khmeracademy.btb.auc.pojo.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.khmeracademy.btb.auc.pojo.entity.Product;
 import org.khmeracademy.btb.auc.pojo.repository.Product_repository;
 import org.khmeracademy.btb.auc.pojo.service.Product_service;
+import org.khmeracademy.btb.auc.pojo.service.UploadImage_service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -21,6 +24,9 @@ public class Product_serviceimpl implements Product_service{
 
     @Autowired
     private Product_repository pro_repo;
+    
+    @Autowired
+    UploadImage_service im_service;
     
     @Override
     public ArrayList<Product> getProduct() {
@@ -33,8 +39,12 @@ public class Product_serviceimpl implements Product_service{
     }
 
     @Override
-    public boolean save(Product pro) {
-        return pro_repo.add(pro);
+    public boolean save(Product pro, List<MultipartFile> files) {
+        
+        pro_repo.add(pro);
+        im_service.upload(pro.getPro_id(), files);
+        
+        return true;
     }
 
     @Override

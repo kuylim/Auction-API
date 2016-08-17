@@ -16,5 +16,5 @@ import org.springframework.web.multipart.MultipartFile;
  * @author User
  */
 public interface UploadImage_service {
-    public Image upload(List<MultipartFile> files, String folder);
+    public Image upload(int pro_id ,List<MultipartFile> files);
 }

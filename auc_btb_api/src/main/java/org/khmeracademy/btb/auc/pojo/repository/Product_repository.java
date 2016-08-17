@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.btb.auc.pojo.entity.Product;
 import org.springframework.stereotype.Repository;
@@ -37,7 +38,8 @@ public interface Product_repository {
     
     
     @Insert("Insert Into auc_product (name, pro_info, status, cat_id, brand_id) values (#{name}, #{pro_info}, 'true', #{cat_id}, #{brand_id})")
-    boolean add(Product pro);
+    @SelectKey(keyProperty = "pro_id", keyColumn = "pro_id", before = false, resultType =int.class, statement = "SELECT last_value FROM tblproduct_proid_seq")
+    int add(Product pro);
     
    
     @Update("Update auc_product Set name=#{name}, pro_info=#{pro_info}, cat_id=#{cat_id}, brand_id=#{brand_id} where pro_id = #{pro_id}")

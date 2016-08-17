@@ -5,6 +5,9 @@
  */
 package org.khmeracademy.btb.auc.pojo.entity;
 
+import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  *
  * @author KUYLIM
@@ -16,6 +19,7 @@ public class Product {
     private boolean status;
     private int cat_id;
     private int brand_id;
+    private List<MultipartFile> images;
 
     /**
      * @return the pro_id
@@ -99,5 +103,19 @@ public class Product {
      */
     public void setBrand_id(int brand_id) {
         this.brand_id = brand_id;
+    }
+
+    /**
+     * @return the images
+     */
+    public List<MultipartFile> getImages() {
+        return images;
+    }
+
+    /**
+     * @param images the images to set
+     */
+    public void setImages(List<MultipartFile> images) {
+        this.images = images;
     }
 }

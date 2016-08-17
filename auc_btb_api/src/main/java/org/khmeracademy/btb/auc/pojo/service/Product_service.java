@@ -6,7 +6,9 @@
 package org.khmeracademy.btb.auc.pojo.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.khmeracademy.btb.auc.pojo.entity.Product;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -15,7 +17,7 @@ import org.khmeracademy.btb.auc.pojo.entity.Product;
 public interface Product_service {
     ArrayList<Product> getProduct();
     boolean remove(int id);
-    boolean save(Product pro);
+    boolean save(Product pro, List<MultipartFile> files);
     boolean update(Product pro);
     Product search(int id);
     Product getLatest();

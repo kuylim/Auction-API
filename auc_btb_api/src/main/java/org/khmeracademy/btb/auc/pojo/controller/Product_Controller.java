@@ -7,6 +7,7 @@ package org.khmeracademy.btb.auc.pojo.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.khmeracademy.btb.auc.pojo.entity.Product;
 import org.khmeracademy.btb.auc.pojo.service.Product_service;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -83,13 +86,13 @@ public class Product_Controller {
     }
 
     
-    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<Map<String, Object>> add(@RequestBody Product pro)
-    {
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> add(Product pro)
+    {        
        Map<String, Object> map = new HashMap<String , Object>();
         try{
             
-            if(pro_service.save(pro)){
+            if(pro_service.save(pro, pro.getImages())){
 		map.put("MESSAGE", "Product has been inserted.");
 		map.put("STATUS", true);
             }else
