@@ -68,5 +68,15 @@ public class Auction_serviceimpl implements Auction_service{
     public int countAuctionByCategory(int id) {
         return auc_repo.countAuctionByCategory(id);
     }
+
+    @Override
+    public ArrayList<Auction_Detail> getAuctionsByBrand(Pagination pagination, int id) {
+        return auc_repo.getAuctionsByBrand(pagination, id);
+    }
+
+    @Override
+    public int countAuctionByBrand(int id) {
+        return auc_repo.countAuctionByBrand(id);
+    }
     
 }

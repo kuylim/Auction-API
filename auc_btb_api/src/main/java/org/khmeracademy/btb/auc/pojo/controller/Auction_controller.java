@@ -103,6 +103,41 @@ public class Auction_controller {
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
     
+    @RequestMapping(value="/get-by-brand/{brand_id}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getAuctionsByBrand(@RequestParam(value = "page", required = false , defaultValue="1") int page 
+            , @RequestParam(value="limit" , required = false , defaultValue="6") int limit, @PathVariable("brand_id") int id)
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            Pagination pagination = new Pagination();
+            pagination.setLimit(limit);
+            pagination.setPage(page);
+            pagination.setTotalCount(auc_service.countAuctionByBrand(id));
+            ArrayList<Auction_Detail> auction = auc_service.getAuctionsByBrand(pagination,id);
+            if(!auction.isEmpty())
+            {
+                map.put("DATA", auction);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+                map.put("PAGINATION", pagination);
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
 //    
     @RequestMapping(value="/delete/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<Map<String, Object>> delete (@PathVariable("id") int id)
@@ -203,7 +238,7 @@ public class Auction_controller {
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
     
-     @RequestMapping(value="/update-current-price/{id}/{price}", method = RequestMethod.PUT, produces = "application/json")
+    @RequestMapping(value="/update-current-price/{id}/{price}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<Map<String, Object>> update_currentprice (@PathVariable("id") int id, @PathVariable("price") double price)
     {
         Map<String, Object> map = new HashMap<String , Object>();

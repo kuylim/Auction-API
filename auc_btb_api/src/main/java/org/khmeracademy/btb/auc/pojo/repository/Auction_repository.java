@@ -189,9 +189,7 @@ public interface Auction_repository {
     int countAuction();
     
     @Select("SELECT COUNT(auc_auction.auc_id) FROM auc_auction\n" +
-            "LEFT JOIN auc_product ON auc_product.pro_id = auc_auction.pro_id \n" +
-            "LEFT JOIN auc_product_owner ON auc_product_owner.owner_id = auc_auction.owner_id \n" +
-            "LEFT JOIN auc_bid_log ON auc_auction.auc_id = auc_bid_log.auc_id \n" +
+            "INNER JOIN JOIN auc_product ON auc_product.pro_id = auc_auction.pro_id \n" +
             "WHERE  auc_auction.status = 'true' \n" +
             "AND auc_product.cat_id = #{id} "
             )
@@ -253,5 +251,69 @@ public interface Auction_repository {
        )
     })
     ArrayList<Auction_Detail> getAuctionsByCategory(@Param("pagination") Pagination pagination, @Param("id") int id);
+    
+    
+    @Select("SELECT \n" +
+            "  auc_auction.product_condition, \n" +
+            "  auc_auction.start_price, \n" +
+            "  auc_auction.buy_price, \n" +
+            "  auc_auction.current_price, \n" +
+            "  auc_auction.bid_increment_price, \n" +
+            "  auc_auction.start_date, \n" +
+            "  auc_auction.end_date, \n" +
+            "  auc_product.image, \n" +
+            "  auc_product.name, \n" +
+            "  auc_product.pro_info, \n" +
+            "  auc_product_owner.firstname, \n" +
+            "  auc_product_owner.lastname, \n" +
+            "  auc_product_owner.phone, \n" +
+            "  auc_product_owner.email, \n" +
+            "  auc_product_owner.address, \n" +
+            "  auc_product_owner.company_profile, \n" +
+            "  auc_product_owner.owner_id, \n" +
+            "  auc_product.pro_id, \n" +
+            "  Count(auc_bid_log.bid_id) as Number_of_bids, \n" +
+            "  auc_auction.auc_id\n" +
+            "FROM auc_auction\n" +
+            "LEFT JOIN auc_product ON auc_product.pro_id = auc_auction.pro_id\n" +
+            "LEFT JOIN auc_product_owner ON auc_product_owner.owner_id = auc_auction.owner_id\n" +
+            "LEFT JOIN auc_bid_log ON auc_auction.auc_id = auc_bid_log.auc_id\n" +
+            
+            "WHERE  auc_auction.status = 'true'\n" +
+            "AND auc_product.brand_id = #{id}\n" +
+            "Group By auc_product.pro_id,auc_auction.auc_id,auc_product_owner.owner_id "
+            + "offset #{pagination.offset} limit #{pagination.limit}")
+    @Results({
+        @Result(property = "product_condition", column = "product_condition"),
+        @Result(property = "start_price", column = "start_price"),
+        @Result(property = "buy_price", column = "buy_price"),
+        @Result(property = "current_price", column = "current_price"),
+        @Result(property = "bid_increment_price", column = "bid_increment_price"),
+        @Result(property = "start_date", column = "start_date"),
+        @Result(property = "end_date", column = "end_date"),
+        @Result(property = "image", column = "image"),
+        @Result(property = "name", column = "name"),
+        @Result(property = "pro_info", column = "pro_info"),
+        @Result(property = "firstname", column = "firstname"),
+        @Result(property = "lastname", column = "lastname"),
+        @Result(property = "phone", column = "phone"),
+        @Result(property = "email", column = "email"),
+        @Result(property = "address", column = "address"),
+        @Result(property = "company_profile", column = "company_profile"),
+        @Result(property = "Number_of_bids", column = "Number_of_bids"),
+        @Result(property = "auc_id", column = "auc_id"),
+        @Result(property = "owner_id", column = "owner_id"),
+        @Result(property = "pro_id", column = "pro_id"),
+       @Result(property = "images", column = "pro_id", many = @Many(select = "findImages")
+       )
+    })
+    ArrayList<Auction_Detail> getAuctionsByBrand(@Param("pagination") Pagination pagination, @Param("id") int id);
+    
+    @Select("SELECT COUNT(auc_auction.auc_id) FROM auc_auction\n" +
+            "INNER JOIN JOIN auc_product ON auc_product.pro_id = auc_auction.pro_id \n" +
+            "WHERE  auc_auction.status = 'true' \n" +
+            "AND auc_product.brand_id = #{id} "
+            )
+    int countAuctionByBrand(int id);
     
 }
