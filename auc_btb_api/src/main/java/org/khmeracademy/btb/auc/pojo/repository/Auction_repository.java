@@ -189,7 +189,9 @@ public interface Auction_repository {
     int countAuction();
     
     @Select("SELECT COUNT(auc_auction.auc_id) FROM auc_auction\n" +
-            "INNER JOIN auc_product ON auc_product.pro_id = auc_auction.pro_id \n" +
+            "LEFT JOIN auc_product ON auc_product.pro_id = auc_auction.pro_id \n" +
+            "LEFT JOIN auc_product_owner ON auc_product_owner.owner_id = auc_auction.owner_id \n" +
+            "LEFT JOIN auc_bid_log ON auc_auction.auc_id = auc_bid_log.auc_id \n" +
             "WHERE  auc_auction.status = 'true' \n" +
             "AND auc_product.cat_id = #{id} "
             )
