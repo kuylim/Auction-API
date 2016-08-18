@@ -59,6 +59,35 @@ public class Brand_controller {
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
     
+    @RequestMapping(value="/get-number-auction-in-brand", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getNumberAuctionInBrand()
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            ArrayList<Brand> brand = bra_service.getNumberOfAuctionInBrand();
+            if(!brand.isEmpty())
+            {
+                map.put("DATA", brand);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
     @RequestMapping(value="/delete/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<Map<String, Object>> delete (@PathVariable("id") int id)
     {

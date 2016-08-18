@@ -46,5 +46,10 @@ public class Brand_serviceimpl implements Brand_service{
     public Brand search(int id) {
         return brand_repo.search(id);
     }
+
+    @Override
+    public ArrayList<Brand> getNumberOfAuctionInBrand() {
+        return brand_repo.getNumberOfAuctionInBrand();
+    }
     
 }

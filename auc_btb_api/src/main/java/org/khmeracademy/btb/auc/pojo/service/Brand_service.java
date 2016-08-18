@@ -18,4 +18,5 @@ public interface Brand_service {
     boolean save(Brand brand);
     boolean update(Brand brand);
     Brand search(int id);
+    ArrayList<Brand> getNumberOfAuctionInBrand();
 }

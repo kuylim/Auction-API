@@ -14,7 +14,7 @@ public class Brand {
     private String name;
     private String description;
     private boolean status;
-
+    private int number_of_brand;
     /**
      * @return the brand_id
      */
@@ -69,5 +69,19 @@ public class Brand {
      */
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    /**
+     * @return the number_of_brand
+     */
+    public int getNumber_of_brand() {
+        return number_of_brand;
+    }
+
+    /**
+     * @param number_of_brand the number_of_brand to set
+     */
+    public void setNumber_of_brand(int number_of_brand) {
+        this.number_of_brand = number_of_brand;
     }
 }
