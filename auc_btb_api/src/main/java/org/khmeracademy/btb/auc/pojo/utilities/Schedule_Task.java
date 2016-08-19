@@ -34,9 +34,9 @@ public class Schedule_Task {
     @Autowired
     private Winner_service winner_service;
     
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
-    @Scheduled(fixedRate = 1800000) // start task every 30minute to select winner
+    @Scheduled(fixedRate = 1000) // start task every 30minute to select winner
     public void sendMailToCustomers() {
         
         ArrayList<Winner> winner = null;
