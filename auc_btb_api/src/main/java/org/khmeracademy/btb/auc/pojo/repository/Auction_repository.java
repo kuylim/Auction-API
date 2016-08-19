@@ -389,48 +389,43 @@ public interface Auction_repository {
     public int countAuctionHistoryByUser(int id);
     
     
-    @Select("SELECT \n" +
-        "  auc_product.name, \n" +
-        "  auc_product.pro_info, \n" +
-        "  auc_auction.product_condition, \n" +
-        "  auc_auction.start_price, \n" +
-        "  auc_auction.buy_price, \n" +
-        "  auc_auction.bid_increment_price, \n" +
-        "  auc_bid_log.current_price, \n" +
-        "  auc_auction.start_date, \n" +
-        "  auc_auction.end_date, \n" +
-        "  auc_auction.status, \n" +
-        "  auc_product_owner.firstname AS owner_firstname, \n" +
-        "  auc_product_owner.lastname AS owner_lastname, \n" +
-        "  auc_product_owner.phone AS owner_phone, \n" +
-        "  auc_product_owner.email AS owner_email, \n" +
-        "  auc_product_owner.address AS owner_address, \n" +
-        "  auc_product_owner.company_profile, \n" +
-        "  auc_user.firstname AS user_firstname, \n" +
-        "  auc_user.lastname AS user_lastname, \n" +
-        "  auc_user.phone AS user_phone, \n" +
-        "  auc_user.email AS user_email, \n" +
-        "  auc_user.address AS user_address, \n" +
-        "  auc_bid_log.date, \n" +
-        "  auc_auction.auc_id, \n" +
-        "  auc_user.usr_id, \n" +
-        "  auc_product_owner.owner_id, \n" +
-        "  auc_product.pro_id,\n" +
-        "  auc_bid_log.auc_id AS bid_id\n" +
-        "FROM \n" +
-        "  public.auc_auction, \n" +
-        "  public.auc_bid_log, \n" +
-        "  public.auc_product, \n" +
-        "  public.auc_product_owner, \n" +
-        "  public.auc_user\n" +
-        "WHERE \n" +
-        "  auc_auction.auc_id = auc_bid_log.auc_id AND\n" +
-        "  auc_product.pro_id = auc_auction.pro_id AND\n" +
-        "  auc_product_owner.owner_id = auc_auction.owner_id AND\n" +
-        "  auc_user.usr_id = auc_bid_log.usr_id AND\n" +
-        "  auc_auction.status = 'true' AND\n" +
-        "  auc_auction.auc_id = #{id}"
-        + " offset #{pagination.offset} limit #{pagination.limit}")
+    @Select("SELECT  \n"
+            + "          auc_product.name,  \n"
+            + "          auc_product.pro_info,  \n"
+            + "          auc_auction.product_condition,  \n"
+            + "          auc_auction.start_price,  \n"
+            + "          auc_auction.buy_price,  \n"
+            + "          auc_auction.bid_increment_price,  \n"
+            + "          auc_bid_log.current_price,  \n"
+            + "          auc_auction.start_date,  \n"
+            + "          auc_auction.end_date,  \n"
+            + "          auc_auction.status,  \n"
+            + "          auc_product_owner.firstname AS owner_firstname,  \n"
+            + "          auc_product_owner.lastname AS owner_lastname,  \n"
+            + "          auc_product_owner.phone AS owner_phone,  \n"
+            + "          auc_product_owner.email AS owner_email,  \n"
+            + "          auc_product_owner.address AS owner_address,  \n"
+            + "          auc_product_owner.company_profile,  \n"
+            + "          auc_user.firstname AS user_firstname,  \n"
+            + "          auc_user.lastname AS user_lastname,  \n"
+            + "          auc_user.phone AS user_phone,  \n"
+            + "          auc_user.email AS user_email,  \n"
+            + "          auc_user.address AS user_address,  \n"
+            + "          auc_bid_log.date,  \n"
+            + "          auc_auction.auc_id,  \n"
+            + "          auc_user.usr_id,  \n"
+            + "          auc_product_owner.owner_id,  \n"
+            + "          auc_product.pro_id, \n"
+            + "          auc_bid_log.auc_id AS bid_id \n"
+            + "        FROM  \n"
+            + "          public.auc_auction\n"
+            + "          LEFT JOIN auc_product ON auc_product.pro_id = auc_auction.pro_id\n"
+            + "          LEFT JOIN auc_product_owner ON auc_product_owner.owner_id = auc_auction.owner_id\n"
+            + "          LEFT JOIN auc_bid_log ON auc_auction.auc_id = auc_bid_log.auc_id\n"
+            + "          LEFT JOIN auc_user ON auc_user.usr_id = auc_bid_log.usr_id  \n"
+            + "          WHERE auc_auction.status = 'true' AND \n"
+            + "          auc_auction.auc_id = #{id}"
+            + " offset #{pagination.offset} limit #{pagination.limit}")
     @Results({
         @Result(property = "pro_name", column = "name"),
         @Result(property = "pro_info", column = "pro_info"),
