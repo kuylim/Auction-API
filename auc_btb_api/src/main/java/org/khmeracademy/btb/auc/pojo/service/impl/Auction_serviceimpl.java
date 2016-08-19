@@ -8,6 +8,7 @@ package org.khmeracademy.btb.auc.pojo.service.impl;
 import java.util.ArrayList;
 import org.khmeracademy.btb.auc.pojo.entity.Auction;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
+import org.khmeracademy.btb.auc.pojo.entity.Auction_history;
 import org.khmeracademy.btb.auc.pojo.repository.Auction_repository;
 import org.khmeracademy.btb.auc.pojo.service.Auction_service;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
@@ -77,6 +78,11 @@ public class Auction_serviceimpl implements Auction_service{
     @Override
     public int countAuctionByBrand(int id) {
         return auc_repo.countAuctionByBrand(id);
+    }
+
+    @Override
+    public ArrayList<Auction_history> getAuctionHistoryByUser(int id) {
+        return auc_repo.getAuctionHistoryByUser(id);
     }
     
 }

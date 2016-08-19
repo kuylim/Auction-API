@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.khmeracademy.btb.auc.pojo.entity.Auction;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
+import org.khmeracademy.btb.auc.pojo.entity.Auction_history;
 import org.khmeracademy.btb.auc.pojo.service.Auction_service;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,6 +123,41 @@ public class Auction_controller {
                 map.put("STATUS", true);
                 map.put("MESSAGE", "DATA FOUND!");
                 map.put("PAGINATION", pagination);
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
+    
+    @RequestMapping(value="/get-history/{usr_id}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getAuctionsHistoryByUser(@PathVariable("usr_id") int id)
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            Pagination pagination = new Pagination();
+//            pagination.setLimit(limit);
+//            pagination.setPage(page);
+            //pagination.setTotalCount(auc_service.countAuctionByBrand(id));
+            ArrayList<Auction_history> auction = auc_service.getAuctionHistoryByUser(id);
+            if(!auction.isEmpty())
+            {
+                map.put("DATA", auction);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+                //map.put("PAGINATION", pagination);
             }
             else
             {

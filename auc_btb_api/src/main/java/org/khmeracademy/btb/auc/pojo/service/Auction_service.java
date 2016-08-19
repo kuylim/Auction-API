@@ -8,6 +8,7 @@ package org.khmeracademy.btb.auc.pojo.service;
 import java.util.ArrayList;
 import org.khmeracademy.btb.auc.pojo.entity.Auction;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
+import org.khmeracademy.btb.auc.pojo.entity.Auction_history;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 
 /**
@@ -26,4 +27,5 @@ public interface Auction_service {
     ArrayList<Auction_Detail> getAuctionsByBrand(Pagination pagination, int id);
     int countAuctionByCategory(int id);
     int countAuctionByBrand(int id);
+    public ArrayList<Auction_history> getAuctionHistoryByUser(int id);
 }

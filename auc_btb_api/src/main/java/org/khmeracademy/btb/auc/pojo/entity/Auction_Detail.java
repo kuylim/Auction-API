@@ -22,7 +22,6 @@ public class Auction_Detail {
     private double bid_increment_price;
     private Date start_date;
     private Date end_date;
-    private String image;
     private String name;
     private String pro_info;
     private String firstname;
@@ -40,10 +39,7 @@ public class Auction_Detail {
 
     /**
      * @return the product_condition
-     */
-    
-   // private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-    
+     */ 
     public String getProduct_condition() {
         return product_condition;
     }
@@ -137,20 +133,6 @@ public class Auction_Detail {
      */
     public void setEnd_date(Date end_date) {
         this.end_date = end_date;
-    }
-
-    /**
-     * @return the image
-     */
-    public String getImage() {
-        return image;
-    }
-
-    /**
-     * @param image the image to set
-     */
-    public void setImage(String image) {
-        this.image = image;
     }
 
     /**
