@@ -27,5 +27,8 @@ public interface Auction_service {
     ArrayList<Auction_Detail> getAuctionsByBrand(Pagination pagination, int id);
     int countAuctionByCategory(int id);
     int countAuctionByBrand(int id);
-    public ArrayList<Auction_history> getAuctionHistoryByUser(int id);
+    public ArrayList<Auction_history> getAuctionHistoryByUser(Pagination pagination,int id);
+    public ArrayList<Auction_history> getAuctionHistoryByAdmin(Pagination pagination,int id);
+    int countAuctionHistoryByUser(int id);
+    int countAuctionHistoryByAdmin(int id);
 }

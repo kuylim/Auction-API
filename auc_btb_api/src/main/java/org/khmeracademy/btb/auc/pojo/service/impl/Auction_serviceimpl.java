@@ -14,6 +14,7 @@ import org.khmeracademy.btb.auc.pojo.service.Auction_service;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.security.x509.X500Name;
 
 /**
  *
@@ -81,8 +82,23 @@ public class Auction_serviceimpl implements Auction_service{
     }
 
     @Override
-    public ArrayList<Auction_history> getAuctionHistoryByUser(int id) {
-        return auc_repo.getAuctionHistoryByUser(id);
+    public ArrayList<Auction_history> getAuctionHistoryByUser(Pagination pagination,int id) {
+        return auc_repo.getAuctionHistoryByUser(pagination,id);
+    }
+
+    @Override
+    public ArrayList<Auction_history> getAuctionHistoryByAdmin(Pagination pagination,int id) {
+        return auc_repo.getAuctionHistoryByAdmin(pagination,id);
+    }
+
+    @Override
+    public int countAuctionHistoryByUser(int id) {
+        return auc_repo.countAuctionHistoryByUser(id);
+    }
+
+    @Override
+    public int countAuctionHistoryByAdmin(int id) {
+        return auc_repo.countAuctionHistoryByAdmin(id);
     }
     
 }

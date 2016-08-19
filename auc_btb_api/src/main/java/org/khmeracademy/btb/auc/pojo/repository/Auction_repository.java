@@ -342,7 +342,8 @@ public interface Auction_repository {
         "  auc_product_owner.owner_id = auc_auction.owner_id AND\n" +
         "  auc_user.usr_id = auc_bid_log.usr_id AND\n" +
         "  auc_auction.status = 'true' AND\n" +
-        "  auc_user.usr_id = #{id}")
+        "  auc_user.usr_id = #{id}"
+        + " offset #{pagination.offset} limit #{pagination.limit}")
     @Results({
         @Result(property = "pro_name", column = "name"),
         @Result(property = "pro_info", column = "pro_info"),
@@ -374,7 +375,106 @@ public interface Auction_repository {
         @Result(property = "images", column = "pro_id", many = @Many(select = "findImages")
         )
     })
-    public ArrayList<Auction_history> getAuctionHistoryByUser(int id);
+    public ArrayList<Auction_history> getAuctionHistoryByUser(@Param("pagination") Pagination pagination, @Param("id") int id);
+    
+    @Select("SELECT \n"
+            + "  count(auc_bid_log.auc_id)\n"
+            + "FROM \n"
+            + "  public.auc_auction, \n"
+            + "  public.auc_bid_log\n"
+            + "WHERE \n"
+            + "  auc_auction.auc_id = auc_bid_log.auc_id AND\n"
+            + "  auc_auction.status = 'true' AND\n"
+            + "  auc_bid_log.usr_id = #{id} ")
+    public int countAuctionHistoryByUser(int id);
+    
+    
+    @Select("SELECT \n" +
+        "  auc_product.name, \n" +
+        "  auc_product.pro_info, \n" +
+        "  auc_auction.product_condition, \n" +
+        "  auc_auction.start_price, \n" +
+        "  auc_auction.buy_price, \n" +
+        "  auc_auction.bid_increment_price, \n" +
+        "  auc_bid_log.current_price, \n" +
+        "  auc_auction.start_date, \n" +
+        "  auc_auction.end_date, \n" +
+        "  auc_auction.status, \n" +
+        "  auc_product_owner.firstname AS owner_firstname, \n" +
+        "  auc_product_owner.lastname AS owner_lastname, \n" +
+        "  auc_product_owner.phone AS owner_phone, \n" +
+        "  auc_product_owner.email AS owner_email, \n" +
+        "  auc_product_owner.address AS owner_address, \n" +
+        "  auc_product_owner.company_profile, \n" +
+        "  auc_user.firstname AS user_firstname, \n" +
+        "  auc_user.lastname AS user_lastname, \n" +
+        "  auc_user.phone AS user_phone, \n" +
+        "  auc_user.email AS user_email, \n" +
+        "  auc_user.address AS user_address, \n" +
+        "  auc_bid_log.date, \n" +
+        "  auc_auction.auc_id, \n" +
+        "  auc_user.usr_id, \n" +
+        "  auc_product_owner.owner_id, \n" +
+        "  auc_product.pro_id,\n" +
+        "  auc_bid_log.auc_id AS bid_id\n" +
+        "FROM \n" +
+        "  public.auc_auction, \n" +
+        "  public.auc_bid_log, \n" +
+        "  public.auc_product, \n" +
+        "  public.auc_product_owner, \n" +
+        "  public.auc_user\n" +
+        "WHERE \n" +
+        "  auc_auction.auc_id = auc_bid_log.auc_id AND\n" +
+        "  auc_product.pro_id = auc_auction.pro_id AND\n" +
+        "  auc_product_owner.owner_id = auc_auction.owner_id AND\n" +
+        "  auc_user.usr_id = auc_bid_log.usr_id AND\n" +
+        "  auc_auction.status = 'true' AND\n" +
+        "  auc_auction.auc_id = #{id}"
+        + " offset #{pagination.offset} limit #{pagination.limit}")
+    @Results({
+        @Result(property = "pro_name", column = "name"),
+        @Result(property = "pro_info", column = "pro_info"),
+        @Result(property = "pro_condition", column = "product_condition"),
+        @Result(property = "auc_start_price", column = "start_price"),
+        @Result(property = "auc_buy_price", column = "buy_price"),
+        @Result(property = "auc_bid_increment", column = "bid_increment_price"),
+        @Result(property = "auc_current_price", column = "current_price"),
+        @Result(property = "auc_start_date", column = "start_date"),
+        @Result(property = "auc_end_date", column = "end_date"),
+        @Result(property = "auc_status", column = "status"),
+        @Result(property = "owner_firstname", column = "owner_firstname"),
+        @Result(property = "owner_lastname", column = "owner_lastname"),
+        @Result(property = "owner_phone", column = "owner_phone"),
+        @Result(property = "owner_email", column = "owner_email"),
+        @Result(property = "owner_address", column = "owner_address"),
+        @Result(property = "owner_com_profile", column = "company_profile"),
+        @Result(property = "user_firstname", column = "user_firstname"),
+        @Result(property = "user_lastname", column = "user_lastname"),
+        @Result(property = "user_phone", column = "user_phone"),
+        @Result(property = "user_email", column = "user_email"),
+        @Result(property = "user_address", column = "user_address"),
+        @Result(property = "bid_date", column = "date"),
+        @Result(property = "auc_id", column = "auc_id"),
+        @Result(property = "usr_id", column = "usr_id"),
+        @Result(property = "owner_id", column = "owner_id"),
+        @Result(property = "bid_log_id", column = "bid_id"),
+        @Result(property = "pro_id", column = "pro_id"),
+        @Result(property = "images", column = "pro_id", many = @Many(select = "findImages")
+        )
+    })
+    public ArrayList<Auction_history> getAuctionHistoryByAdmin(@Param("pagination") Pagination pagination, @Param("id") int id);
+    
+    @Select("SELECT \n" +
+ "  count(auc_bid_log.auc_id)\n"
+            + "FROM \n"
+            + "  public.auc_auction, \n"
+            + "  public.auc_bid_log\n"
+            + "WHERE \n"
+            + "  auc_auction.auc_id = auc_bid_log.auc_id AND\n"
+            + "  auc_auction.status = 'true' AND\n"
+            + "  auc_auction.auc_id = #{id}")
+    public int countAuctionHistoryByAdmin(int id);
+    
 
     @Select("SELECT img_path FROM auc_images WHERE pro_id = #{pro_id}")
     @Results(value = {

@@ -142,22 +142,59 @@ public class Auction_controller {
     
     @RequestMapping(value="/get-history/{usr_id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getAuctionsHistoryByUser(@PathVariable("usr_id") int id)
+    public ResponseEntity<Map<String, Object>> getAuctionsHistoryByUser(@RequestParam(value = "page", required = false , defaultValue="1") int page 
+            , @RequestParam(value="limit" , required = false , defaultValue="10") int limit,@PathVariable("usr_id") int id)
     {
         Map<String, Object> map = new HashMap<String, Object>();
         try
         {
             Pagination pagination = new Pagination();
-//            pagination.setLimit(limit);
-//            pagination.setPage(page);
-            //pagination.setTotalCount(auc_service.countAuctionByBrand(id));
-            ArrayList<Auction_history> auction = auc_service.getAuctionHistoryByUser(id);
+            pagination.setLimit(limit);
+            pagination.setPage(page);
+            pagination.setTotalCount(auc_service.countAuctionHistoryByUser(id));
+            ArrayList<Auction_history> auction = auc_service.getAuctionHistoryByUser(pagination,id);
             if(!auction.isEmpty())
             {
                 map.put("DATA", auction);
                 map.put("STATUS", true);
                 map.put("MESSAGE", "DATA FOUND!");
-                //map.put("PAGINATION", pagination);
+                map.put("PAGINATION", pagination);
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
+    
+    @RequestMapping(value="/get-history-view-by-admin/{auc_id}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getAuctionsHistoryByAdmin(@RequestParam(value = "page", required = false , defaultValue="1") int page 
+            , @RequestParam(value="limit" , required = false , defaultValue="10") int limit,@PathVariable("auc_id") int id)
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            Pagination pagination = new Pagination();
+            pagination.setLimit(limit);
+            pagination.setPage(page);
+            pagination.setTotalCount(auc_service.countAuctionHistoryByAdmin(id));
+            ArrayList<Auction_history> auction = auc_service.getAuctionHistoryByAdmin(pagination,id);
+            if(!auction.isEmpty())
+            {
+                map.put("DATA", auction);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+                map.put("PAGINATION", pagination);
             }
             else
             {
