@@ -61,5 +61,10 @@ public class Product_serviceimpl implements Product_service{
     public Product getLatest() {
         return pro_repo.getLastest();
     }
+
+    @Override
+    public int countProduct() {
+        return pro_repo.countProduct();
+    }
     
 }

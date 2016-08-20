@@ -21,4 +21,5 @@ public interface Product_service {
     boolean update(Product pro);
     Product search(int id);
     Product getLatest();
+    int countProduct();
 }
