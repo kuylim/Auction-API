@@ -71,7 +71,7 @@ public class UploadImage_serviceimpl implements UploadImage_service{
                                 //TODO: USING THUMBNAILS TO RESIZE THE IMAGE
                                 
 				Thumbnails.of(UPLOAD_PATH + "/" + fileName)
-				.forceSize(500, 800)
+				.forceSize(640, 640)
 				.toFiles(thum_path, Rename.NO_CHANGE);
 				} catch (Exception ex) {
                                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(THUMBNAIL_PATH +  fileName)));

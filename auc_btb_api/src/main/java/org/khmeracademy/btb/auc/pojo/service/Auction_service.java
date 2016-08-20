@@ -31,4 +31,6 @@ public interface Auction_service {
     public ArrayList<Auction_history> getAuctionHistoryByAdmin(Pagination pagination,int id);
     int countAuctionHistoryByUser(int id);
     int countAuctionHistoryByAdmin(int id);
+    ArrayList<Auction_Detail> searchAuctionByProductName(Pagination pagination, String pro_name);
+    int countAuctionByProductName(String pro_name);
 }

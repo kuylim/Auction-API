@@ -100,5 +100,15 @@ public class Auction_serviceimpl implements Auction_service{
     public int countAuctionHistoryByAdmin(int id) {
         return auc_repo.countAuctionHistoryByAdmin(id);
     }
+
+    @Override
+    public ArrayList<Auction_Detail> searchAuctionByProductName(Pagination pagination, String pro_name) {
+        return auc_repo.searchAuctionByProductName(pagination, pro_name);
+    }
+
+    @Override
+    public int countAuctionByProductName(String pro_name) {
+        return auc_repo.countAuctionByProductName(pro_name);
+    }
     
 }

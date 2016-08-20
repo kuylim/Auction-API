@@ -311,6 +311,41 @@ public class Auction_controller {
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
     
+    @RequestMapping(value="/search-product/{pro_name}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> searchAuctionByProductName(@RequestParam(value = "page", required = false , defaultValue="1") int page 
+            , @RequestParam(value="limit" , required = false , defaultValue="6") int limit, @PathVariable("pro_name") String pro_name)
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            Pagination pagination = new Pagination();
+            pagination.setLimit(limit);
+            pagination.setPage(page);
+            pagination.setTotalCount(auc_service.countAuctionByProductName(pro_name));
+            ArrayList<Auction_Detail> auction = auc_service.searchAuctionByProductName(pagination,pro_name);
+            if(!auction.isEmpty())
+            {
+                map.put("DATA", auction);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+                map.put("PAGINATION", pagination);
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
     @RequestMapping(value="/update-current-price/{id}/{price}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<Map<String, Object>> update_currentprice (@PathVariable("id") int id, @PathVariable("price") double price)
     {
