@@ -5,11 +5,15 @@
  */
 package org.khmeracademy.btb.auc.pojo.controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import org.khmeracademy.btb.auc.pojo.entity.Product_Owner;
 import org.khmeracademy.btb.auc.pojo.entity.User;
 import org.khmeracademy.btb.auc.pojo.entity.UserLogin;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.khmeracademy.btb.auc.pojo.service.User_service;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  *
@@ -264,34 +269,41 @@ public class User_controller {
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
         
-//    @RequestMapping(value="/validate-email/{email}", method = RequestMethod.GET, produces = "application/json")
-//    @ResponseBody
-//        public ResponseEntity<Map<String, Object>> validate_email (@PathVariable("email") String email)
-//        {
-//             Map<String, Object> map = new HashMap<String, Object>();
-//            try
-//            {
-//                User customer = usr_service.findUserByEmail(email);
-//                if(customer!=null)
-//                {
-//                    map.put("DATA", customer);
-//                    map.put("STATUS", true);
-//                    map.put("MESSAGE", "DATA FOUND!");
-//                }
-//                else
-//                {
-//                    map.put("STATUS", true);
-//                    map.put("MESSAGE", "DATA NOT FOUND");
-//                }
-//            }
-//            catch (Exception e)
-//            {
-//                map.put("STATUS", false);
-//                map.put("MESSAGE", "Error!");
-//                e.printStackTrace();
-//            }
-//            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//        }
+    @RequestMapping(value="/get-all", method = RequestMethod.GET, produces = "application/json")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name="page", paramType = "query", defaultValue = "1"),
+        @ApiImplicitParam(name="limit", paramType = "query", defaultValue = "10"),
+        @ApiImplicitParam(name="name", paramType = "query", defaultValue = "")   
+    })
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> findAll(@ApiIgnore AuctionFilter filter, @ApiIgnore Pagination pagination)
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            pagination.setTotalCount(usr_service.count(filter));
+            ArrayList<User> auction = (ArrayList<User>) usr_service.findAll(filter, pagination);
+            if(!auction.isEmpty())
+            {
+                map.put("DATA", auction);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+                map.put("PAGINATION", pagination);
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
   
     
 }

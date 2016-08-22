@@ -6,7 +6,10 @@
 package org.khmeracademy.btb.auc.pojo.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.khmeracademy.btb.auc.pojo.entity.Product_Owner;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 
 /**
  *
@@ -18,4 +21,7 @@ public interface Product_owner_service {
     boolean save(Product_Owner pro_owner);
     boolean update(Product_Owner pro_owner);
     Product_Owner search(int id);
+    
+    public List<Product_Owner> findAll(AuctionFilter filter, Pagination pagination);
+    int count(AuctionFilter filter);
 }

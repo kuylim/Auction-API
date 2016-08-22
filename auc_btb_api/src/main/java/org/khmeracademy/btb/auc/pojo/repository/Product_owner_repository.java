@@ -6,12 +6,16 @@
 package org.khmeracademy.btb.auc.pojo.repository;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.btb.auc.pojo.entity.Product_Owner;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -55,4 +59,22 @@ public interface Product_owner_repository {
         @Result(property = "status", column = "status")
     })
     Product_Owner search(int id);
+    
+    @Select("Select * from auc_product_owner  Where status = 'true'"
+            +  "AND firstname ~* #{filter.name}\n"
+            + "offset #{pagination.offset} limit #{pagination.limit}")
+    @Results({
+        @Result(property = "owner_id", column = "owner_id"),
+        @Result(property = "firstname", column = "firstname"),
+        @Result(property = "lastname", column = "lastname"),
+        @Result(property = "phone", column = "phone"),
+        @Result(property = "email", column = "email"),
+        @Result(property = "address", column = "address"),
+        @Result(property = "company_profile", column = "company_profile"),
+        @Result(property = "status", column = "status")
+    })
+    List<Product_Owner> findAll(@Param("filter")AuctionFilter filter, @Param("pagination")Pagination pagination);
+    
+    @Select("Select Count(owner_id) from auc_product_owner Where status = 'true' AND firstname ~* #{filter.name}")
+    int count(@Param("filter") AuctionFilter filter);
 }

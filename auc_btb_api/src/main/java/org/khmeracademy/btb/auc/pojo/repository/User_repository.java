@@ -6,13 +6,16 @@
 package org.khmeracademy.btb.auc.pojo.repository;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.khmeracademy.btb.auc.pojo.entity.Product_Owner;
 import org.khmeracademy.btb.auc.pojo.entity.User;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.stereotype.Repository;
 
@@ -80,4 +83,24 @@ public interface User_repository {
 			@Result(property = "role" , column = "role")
         })
     User findUserByEmail(@Param("userEmail") String userEmail);
+    
+     @Select("Select * from auc_user  Where status = 'true' AND role = 'ROLE_USER'"
+            + "AND firstname ~* #{filter.name}\n"
+            + "offset #{pagination.offset} limit #{pagination.limit}")
+    @Results({
+        @Result(property = "usr_id", column = "usr_id"),
+        @Result(property = "firstname", column = "firstname"),
+        @Result(property = "lastname", column = "lastname"),
+        @Result(property = "username", column = "username"),
+        @Result(property = "phone", column = "phone"),
+        @Result(property = "email", column = "email"),
+        @Result(property = "address", column = "address"),
+        @Result(property = "credit", column = "credit"),
+        @Result(property = "status", column = "status")
+        
+    })
+    List<User> findAll(@Param("filter")AuctionFilter filter, @Param("pagination")Pagination pagination);
+    
+    @Select("Select Count(usr_id) from auc_user Where status = 'true' AND firstname ~* #{filter.name}")
+    int count(@Param("filter") AuctionFilter filter);
 }

@@ -6,9 +6,13 @@
 package org.khmeracademy.btb.auc.pojo.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
+import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
 import org.khmeracademy.btb.auc.pojo.entity.Category;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.repository.Category_repository;
 import org.khmeracademy.btb.auc.pojo.service.Category_service;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +48,16 @@ public class Category_serviceimpl implements Category_service{
     @Override
     public Category search(int id) {
         return cate_repo.search(id);
+    }
+
+    @Override
+    public List<Category> findAll(AuctionFilter filter, Pagination pagination) {
+       // cate_repo.count(filter);
+        return cate_repo.findAll(filter, pagination);
+    }
+
+    @Override
+    public int count(AuctionFilter filter) {
+        return cate_repo.count(filter);
     }
 }

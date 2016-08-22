@@ -6,9 +6,12 @@
 package org.khmeracademy.btb.auc.pojo.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.khmeracademy.btb.auc.pojo.entity.Brand;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.repository.Brand_repository;
 import org.khmeracademy.btb.auc.pojo.service.Brand_service;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +53,16 @@ public class Brand_serviceimpl implements Brand_service{
     @Override
     public ArrayList<Brand> getNumberOfAuctionInBrand() {
         return brand_repo.getNumberOfAuctionInBrand();
+    }
+
+    @Override
+    public List<Brand> findAll(AuctionFilter filter, Pagination pagination) {
+        return brand_repo.findAll(filter, pagination);
+    }
+
+    @Override
+    public int count(AuctionFilter filter) {
+        return brand_repo.count(filter);
     }
     
 }

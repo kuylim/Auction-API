@@ -6,12 +6,16 @@
 package org.khmeracademy.btb.auc.pojo.repository;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.btb.auc.pojo.entity.Brand;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -66,5 +70,19 @@ public interface Brand_repository {
         @Result(property = "number_of_brand", column = "number_of_brand")
     })
     ArrayList<Brand> getNumberOfAuctionInBrand();
+    
+    @Select("Select * from auc_brand  Where status = 'true' "
+            + "AND name ~* #{filter.name}\n"
+            + "offset #{pagination.offset} limit #{pagination.limit}")
+    @Results({
+        @Result(property = "brand_id", column = "brand_id"),
+        @Result(property = "name", column = "name"),
+        @Result(property = "description", column = "description"),
+        @Result(property = "status", column = "status")
+    })
+    List<Brand> findAll(@Param("filter")AuctionFilter filter, @Param("pagination")Pagination pagination);
+    
+    @Select("Select Count(brand_id) from auc_brand Where status = 'true' AND name ~* #{filter.name}")
+    int count(@Param("filter") AuctionFilter filter);
 
 }

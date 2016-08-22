@@ -6,7 +6,10 @@
 package org.khmeracademy.btb.auc.pojo.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import org.khmeracademy.btb.auc.pojo.entity.Product_Owner;
 import org.khmeracademy.btb.auc.pojo.entity.User;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 
 /**
@@ -24,5 +27,8 @@ public interface User_service {
     int countUsers();
     User findUserByEmail(String email);
     int countUser();
+    
+    public List<User> findAll(AuctionFilter filter, Pagination pagination);
+    int count(AuctionFilter filter);
     
 }

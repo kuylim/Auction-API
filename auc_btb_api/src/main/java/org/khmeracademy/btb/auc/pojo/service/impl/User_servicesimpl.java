@@ -6,7 +6,9 @@
 package org.khmeracademy.btb.auc.pojo.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.khmeracademy.btb.auc.pojo.entity.User;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,6 +73,16 @@ public class User_servicesimpl implements User_service{
     @Override
     public int countUser() {
         return usr_repo.countCustomer();
+    }
+
+    @Override
+    public List<User> findAll(AuctionFilter filter, Pagination pagination) {
+        return usr_repo.findAll(filter, pagination);
+    }
+
+    @Override
+    public int count(AuctionFilter filter) {
+        return usr_repo.count(filter);
     }
     
 }

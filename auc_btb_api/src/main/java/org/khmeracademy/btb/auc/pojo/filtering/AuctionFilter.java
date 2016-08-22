@@ -13,11 +13,15 @@ public class AuctionFilter {
     private String name;
     private String categoryId;
     private String brandId;
+    private String brandName;
+    private String categoryName;
     
     public AuctionFilter(){
         this.name = "";
         this.categoryId =  "";
         this.brandId = "";
+        this.categoryName = "";
+        this.brandName = "";
     }
     /**
      * @return the name
@@ -59,6 +63,34 @@ public class AuctionFilter {
      */
     public void setBrandId(String brandId) {
         this.brandId = brandId;
+    }
+
+    /**
+     * @return the brandName
+     */
+    public String getBrandName() {
+        return brandName;
+    }
+
+    /**
+     * @param brandName the brandName to set
+     */
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    /**
+     * @return the categoryName
+     */
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    /**
+     * @param categoryName the categoryName to set
+     */
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     

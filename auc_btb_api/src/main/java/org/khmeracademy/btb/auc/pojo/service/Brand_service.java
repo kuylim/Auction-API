@@ -6,7 +6,10 @@
 package org.khmeracademy.btb.auc.pojo.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.khmeracademy.btb.auc.pojo.entity.Brand;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 
 /**
  *
@@ -19,4 +22,7 @@ public interface Brand_service {
     boolean update(Brand brand);
     Brand search(int id);
     ArrayList<Brand> getNumberOfAuctionInBrand();
+    
+    public List<Brand> findAll(AuctionFilter filter, Pagination pagination);
+    int count(AuctionFilter filter);
 }
