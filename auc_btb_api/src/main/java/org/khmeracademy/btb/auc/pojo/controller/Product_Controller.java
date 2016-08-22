@@ -5,12 +5,16 @@
  */
 package org.khmeracademy.btb.auc.pojo.controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.khmeracademy.btb.auc.pojo.entity.Product;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.service.Product_service;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  *
@@ -204,6 +209,43 @@ public class Product_Controller {
                 map.put("DATA", number);
                 map.put("STATUS", true);
                 map.put("MESSAGE", "DATA FOUND!");
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/get-all", method = RequestMethod.GET, produces = "application/json")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name="page", paramType = "query", defaultValue = "1"),
+        @ApiImplicitParam(name="limit", paramType = "query", defaultValue = "10"),
+        @ApiImplicitParam(name="name", paramType = "query", defaultValue = ""), 
+        @ApiImplicitParam(name="brandId", paramType = "query", defaultValue = "")
+    })
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> findAll(@ApiIgnore AuctionFilter filter, @ApiIgnore Pagination pagination)
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            pagination.setTotalCount(pro_service.countProduct());
+            ArrayList<Product> pro = (ArrayList<Product>) pro_service.findAll(filter, pagination);
+            if(!pro.isEmpty())
+            {
+                map.put("DATA", pro);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+                map.put("PAGINATION", pagination);
             }
             else
             {

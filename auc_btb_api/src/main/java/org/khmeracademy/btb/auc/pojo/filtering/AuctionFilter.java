@@ -12,10 +12,12 @@ package org.khmeracademy.btb.auc.pojo.filtering;
 public class AuctionFilter {
     private String name;
     private String categoryId;
+    private String brandId;
     
     public AuctionFilter(){
         this.name = "";
         this.categoryId =  "";
+        this.brandId = "";
     }
     /**
      * @return the name
@@ -44,5 +46,20 @@ public class AuctionFilter {
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
+
+    /**
+     * @return the brandId
+     */
+    public String getBrandId() {
+        return brandId;
+    }
+
+    /**
+     * @param brandId the brandId to set
+     */
+    public void setBrandId(String brandId) {
+        this.brandId = brandId;
+    }
+
     
 }

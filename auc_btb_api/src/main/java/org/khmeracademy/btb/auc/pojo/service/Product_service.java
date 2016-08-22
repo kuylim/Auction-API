@@ -7,7 +7,10 @@ package org.khmeracademy.btb.auc.pojo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
 import org.khmeracademy.btb.auc.pojo.entity.Product;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -22,4 +25,6 @@ public interface Product_service {
     Product search(int id);
     Product getLatest();
     int countProduct();
+    
+    public List<Product> findAll(AuctionFilter filter, Pagination pagination);
 }

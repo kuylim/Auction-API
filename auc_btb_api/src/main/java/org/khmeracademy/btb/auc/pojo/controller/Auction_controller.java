@@ -492,7 +492,7 @@ public class Auction_controller {
     @RequestMapping(value="/get-all", method = RequestMethod.GET, produces = "application/json")
     @ApiImplicitParams({
         @ApiImplicitParam(name="page", paramType = "query", defaultValue = "1"),
-        @ApiImplicitParam(name="limit", paramType = "query", defaultValue = "15"),
+        @ApiImplicitParam(name="limit", paramType = "query", defaultValue = "10"),
         @ApiImplicitParam(name="name", paramType = "query", defaultValue = ""),
         @ApiImplicitParam(name="categoryId", paramType = "query", defaultValue = "")
     })

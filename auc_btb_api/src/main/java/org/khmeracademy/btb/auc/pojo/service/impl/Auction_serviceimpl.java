@@ -130,6 +130,7 @@ public class Auction_serviceimpl implements Auction_service{
 
     @Override
     public List<Auction_Detail> findAll(AuctionFilter filter, Pagination pagination) {
+        System.out.println("request" + filter.getName() + " " + filter.getCategoryId());
         pagination.setTotalCount(auc_repo.count(filter));
        return auc_repo.findAll(filter, pagination);
     }

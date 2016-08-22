@@ -638,7 +638,7 @@ public interface Auction_repository {
             + "LEFT JOIN auc_product ON auc_product.pro_id = auc_auction.pro_id\n"
             + "LEFT JOIN auc_product_owner ON auc_product_owner.owner_id = auc_auction.owner_id\n"
             + "WHERE  auc_auction.status = 'true'\n"
-            + "AND auc_product.name LIKE '%' || #{filter.name} || '%' "
+            + "AND auc_product.name ~* #{filter.name} "
             + "AND auc_product.cat_id::TEXT LIKE '%' || #{filter.categoryId} || '%' \n " 
             + "offset #{pagination.offset} limit #{pagination.limit}")
     @Results({
@@ -672,7 +672,7 @@ public interface Auction_repository {
             + "LEFT JOIN auc_product ON auc_product.pro_id = auc_auction.pro_id\n"
             + "LEFT JOIN auc_product_owner ON auc_product_owner.owner_id = auc_auction.owner_id\n"
             + "WHERE  auc_auction.status = 'true'\n"
-            + "AND auc_product.name LIKE '%' || #{filter.name} || '%' "
+            + "AND auc_product.name ~* #{filter.name} "
             + "AND auc_product.cat_id::TEXT LIKE '%' || #{filter.categoryId} || '%' \n  ")
     public int count(@Param("filter") AuctionFilter filter);
     

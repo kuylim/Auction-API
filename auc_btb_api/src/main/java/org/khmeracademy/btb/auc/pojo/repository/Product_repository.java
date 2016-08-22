@@ -6,13 +6,17 @@
 package org.khmeracademy.btb.auc.pojo.repository;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.btb.auc.pojo.entity.Product;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
+import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -71,6 +75,32 @@ public interface Product_repository {
         "  Count(auc_product.pro_id) \n" +
         "FROM \n" +
         "  public.auc_product\n" +
+        "  Where auc_product.status = 'true'\n" +
+        "  AND auc_product.name ~* #{filter.name}\n" +
+        "  AND auc_product.brand_id::TEXT LIKE '%' || #{filter.brandId} || '%'" )
+    int countAllProduct(@Param("filter") AuctionFilter filter);
+    
+    @Select("SELECT \n" +
+        "  Count(auc_product.pro_id) \n" +
+        "FROM \n" +
+        "  public.auc_product\n" +
         "  Where auc_product.status = 'true'")
     int countProduct();
+//    
+//    @Select("Select * from auc_product  Where status = 'true' \n"
+//            + "AND auc_product.name ~* #{filter.name}\n"
+//            + "AND auc_product.brand_id:: TEXT LIKE '%' || #{filter.brandId} || '%'\n"
+//            + "offset #{pagination.offset} limit #{pagination.limit}")
+    @Select("Select * from auc_product  Where status = 'true' \n" +
+            "AND auc_product.name ~* #{filter.name}" +
+            "AND auc_product.brand_id::TEXT LIKE '%' || #{filter.brandId} || '%' \n  ")
+    @Results({
+        @Result(property = "pro_id", column = "pro_id"),
+        @Result(property = "name", column = "name"),
+        @Result(property = "pro_info", column = "pro_info"),
+        @Result(property = "status", column = "status"),
+        @Result(property = "cat_id", column = "cat_id"),
+        @Result(property = "brand_id", column = "brand_id")
+    })
+    List<Product> findAll(@Param("filter")AuctionFilter filter, @Param("pagination")Pagination pagination);
 }
