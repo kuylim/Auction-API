@@ -16,7 +16,23 @@ import org.khmeracademy.btb.auc.pojo.entity.Top_Bidder;
  * @author User
  */
 public interface Top_Bidder_repository {
-    @Select("Select * from auc_user  Where status = 'true'")
+    @Select("SELECT \n" +
+        "  auc_user.firstname, \n" +
+        "  auc_user.lastname, \n" +
+        "  auc_user.username, \n" +
+        "  auc_user.phone, \n" +
+        "  auc_user.email, \n" +
+        "  auc_user.address, \n" +
+        "  Count (auc_bid_log.usr_id) as Number_of_bids\n" +
+        "FROM \n" +
+        "  public.auc_bid_log, \n" +
+        "  public.auc_user\n" +
+        "WHERE \n" +
+        "  auc_user.usr_id = auc_bid_log.usr_id AND\n" +
+        "  auc_user.status = 'true'\n" +
+        "Group By auc_user.usr_id\n" +
+        "Order By Number_of_bids DESC\n" +
+        "LiMIT 5")
     @Results({
         @Result(property = "firstname", column = "firstname"),
         @Result(property = "lastname", column = "lastname"),

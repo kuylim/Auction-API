@@ -70,6 +70,37 @@ public class User_controller {
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
     
+    @RequestMapping(value="/get-number-of-user", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getNumberofUser()
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            
+            int numberOfUser = usr_service.countUser();
+            
+            if(numberOfUser!=0)
+            {
+                map.put("DATA", numberOfUser);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
     @RequestMapping(value="/delete/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<Map<String, Object>> delete (@PathVariable("id") int id)
     {

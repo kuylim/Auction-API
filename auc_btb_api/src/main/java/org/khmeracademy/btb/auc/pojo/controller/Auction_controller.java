@@ -5,12 +5,15 @@
  */
 package org.khmeracademy.btb.auc.pojo.controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import org.khmeracademy.btb.auc.pojo.entity.Auction;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_history;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.service.Auction_service;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  *
@@ -88,6 +92,122 @@ public class Auction_controller {
                 map.put("STATUS", true);
                 map.put("MESSAGE", "DATA FOUND!");
                 map.put("PAGINATION", pagination);
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/get-active-auctions", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getActiveAuction()
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            int number = auc_service.countAuction();
+            if(number!=0)
+            {
+                map.put("DATA", number);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
+        @RequestMapping(value="/get-disable-auctions", method = RequestMethod.GET, produces = "application/json")
+        @ResponseBody
+        public ResponseEntity<Map<String, Object>> getDisableAuction()
+        {
+            Map<String, Object> map = new HashMap<String, Object>();
+            try
+            {
+                int number = auc_service.countDisableAuctions();
+                if(number!=0)
+                {
+                    map.put("DATA", number);
+                    map.put("STATUS", true);
+                    map.put("MESSAGE", "DATA FOUND!");
+                }
+                else
+                {
+                    map.put("STATUS", true);
+                    map.put("MESSAGE", "DATA NOT FOUND");
+                }
+            }
+            catch (Exception e)
+            {
+                map.put("STATUS", false);
+                map.put("MESSAGE", "Error!");
+                e.printStackTrace();
+            }
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }
+    
+    @RequestMapping(value="/get-new-auctions", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getNewAuctions()
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            ArrayList<Auction_Detail> auction = auc_service.getNewAuction();
+            if(!auction.isEmpty())
+            {
+                map.put("DATA", auction);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/get-top-and-low-auctions", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getTopAndLow()
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            ArrayList<Auction_Detail> auction = auc_service.getTopAndLowAuction();
+            if(!auction.isEmpty())
+            {
+                map.put("DATA", auction);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
             }
             else
             {
@@ -367,5 +487,42 @@ public class Auction_controller {
             e.printStackTrace();
 	}
         return new ResponseEntity<Map<String,Object>>(map , HttpStatus.OK);
+    }
+        
+    @RequestMapping(value="/get-all", method = RequestMethod.GET, produces = "application/json")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name="page", paramType = "query", defaultValue = "1"),
+        @ApiImplicitParam(name="limit", paramType = "query", defaultValue = "15"),
+        @ApiImplicitParam(name="name", paramType = "query", defaultValue = ""),
+        @ApiImplicitParam(name="categoryId", paramType = "query", defaultValue = "")
+    })
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> findAll(@ApiIgnore AuctionFilter filter, @ApiIgnore Pagination pagination)
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            pagination.setTotalCount(auc_service.countAuction());
+            ArrayList<Auction_Detail> auction = (ArrayList<Auction_Detail>) auc_service.findAll(filter, pagination);
+            if(!auction.isEmpty())
+            {
+                map.put("DATA", auction);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+                map.put("PAGINATION", pagination);
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
 }

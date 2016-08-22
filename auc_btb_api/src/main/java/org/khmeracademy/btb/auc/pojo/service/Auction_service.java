@@ -6,9 +6,11 @@
 package org.khmeracademy.btb.auc.pojo.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.khmeracademy.btb.auc.pojo.entity.Auction;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_history;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 
 /**
@@ -27,10 +29,15 @@ public interface Auction_service {
     ArrayList<Auction_Detail> getAuctionsByBrand(Pagination pagination, int id);
     int countAuctionByCategory(int id);
     int countAuctionByBrand(int id);
-    public ArrayList<Auction_history> getAuctionHistoryByUser(Pagination pagination,int id);
-    public ArrayList<Auction_history> getAuctionHistoryByAdmin(Pagination pagination,int id);
+    ArrayList<Auction_history> getAuctionHistoryByUser(Pagination pagination,int id);
+    ArrayList<Auction_history> getAuctionHistoryByAdmin(Pagination pagination,int id);
     int countAuctionHistoryByUser(int id);
     int countAuctionHistoryByAdmin(int id);
     ArrayList<Auction_Detail> searchAuctionByProductName(Pagination pagination, String pro_name);
     int countAuctionByProductName(String pro_name);
+    ArrayList<Auction_Detail> getNewAuction();
+    int countDisableAuctions();
+    ArrayList<Auction_Detail> getTopAndLowAuction();
+    
+    public List<Auction_Detail> findAll(AuctionFilter filter, Pagination pagination);
 }

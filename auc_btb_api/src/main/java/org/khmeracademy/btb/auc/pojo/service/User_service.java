@@ -23,4 +23,6 @@ public interface User_service {
     User search(int id);
     int countUsers();
     User findUserByEmail(String email);
+    int countUser();
+    
 }

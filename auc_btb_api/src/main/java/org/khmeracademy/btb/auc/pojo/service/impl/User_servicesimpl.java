@@ -67,5 +67,10 @@ public class User_servicesimpl implements User_service{
     public boolean save_admin(User user) {
         return usr_repo.add_admin(user);
     }
+
+    @Override
+    public int countUser() {
+        return usr_repo.countCustomer();
+    }
     
 }

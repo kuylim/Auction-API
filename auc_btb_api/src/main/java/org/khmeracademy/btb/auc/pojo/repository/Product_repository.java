@@ -66,6 +66,7 @@ public interface Product_repository {
         @Result(property = "brand_id", column = "brand_id")
     })
     Product getLastest();
+    
     @Select("SELECT \n" +
         "  Count(auc_product.pro_id) \n" +
         "FROM \n" +

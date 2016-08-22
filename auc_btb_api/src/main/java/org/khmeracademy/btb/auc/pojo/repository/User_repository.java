@@ -68,7 +68,7 @@ public interface User_repository {
     })
     User search(int id);  
     
-    @Select("SELECT COUNT(usr_id) FROM auc_user Where status = 'true'")
+    @Select("SELECT COUNT(usr_id) FROM auc_user Where status = 'true' AND role = 'ROLE_USER'")
     int countCustomer();
     
     @Select("SELECT usr_id, username, password, email, role FROM auc_user Where status = 'true' AND email = #{userEmail}")

@@ -6,9 +6,11 @@
 package org.khmeracademy.btb.auc.pojo.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.khmeracademy.btb.auc.pojo.entity.Auction;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_Detail;
 import org.khmeracademy.btb.auc.pojo.entity.Auction_history;
+import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.repository.Auction_repository;
 import org.khmeracademy.btb.auc.pojo.service.Auction_service;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
@@ -109,6 +111,27 @@ public class Auction_serviceimpl implements Auction_service{
     @Override
     public int countAuctionByProductName(String pro_name) {
         return auc_repo.countAuctionByProductName(pro_name);
+    }
+
+    @Override
+    public ArrayList<Auction_Detail> getNewAuction() {
+        return auc_repo.getNewAuction();
+    }
+
+    @Override
+    public int countDisableAuctions() {
+        return auc_repo.countDisableAuction();
+    }
+
+    @Override
+    public ArrayList<Auction_Detail> getTopAndLowAuction() {
+        return auc_repo.getTopAndLowAuction();
+    }
+
+    @Override
+    public List<Auction_Detail> findAll(AuctionFilter filter, Pagination pagination) {
+        pagination.setTotalCount(auc_repo.count(filter));
+       return auc_repo.findAll(filter, pagination);
     }
     
 }
