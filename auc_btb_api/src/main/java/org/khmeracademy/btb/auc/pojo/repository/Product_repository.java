@@ -93,7 +93,8 @@ public interface Product_repository {
 //            + "offset #{pagination.offset} limit #{pagination.limit}")
     @Select("Select * from auc_product  Where status = 'true' \n" +
             "AND auc_product.name ~* #{filter.name}" +
-            "AND auc_product.brand_id::TEXT LIKE '%' || #{filter.brandId} || '%' \n  ")
+            "AND auc_product.brand_id::TEXT LIKE '%' || #{filter.brandId} || '%' \n "
+            + "offset #{pagination.offset} limit #{pagination.limit}")
     @Results({
         @Result(property = "pro_id", column = "pro_id"),
         @Result(property = "name", column = "name"),
