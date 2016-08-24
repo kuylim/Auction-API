@@ -8,6 +8,9 @@ package org.khmeracademy.btb.auc.pojo.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import org.khmeracademy.btb.auc.pojo.entity.User;
 import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.khmeracademy.btb.auc.pojo.repository.User_repository;
 import org.khmeracademy.btb.auc.pojo.service.User_service;
 import org.khmeracademy.btb.auc.pojo.utilities.VerifyCode_sevice;
+import org.springframework.mail.MailException;
 
 /**
  *
@@ -44,7 +48,13 @@ public class User_servicesimpl implements User_service{
     public boolean save_user(User user) {
         String verifyKey = "" + UUID.randomUUID();
         user.setVerifyKey(verifyKey);
-        verifycode.sendComfirmation(user);
+        try {
+            verifycode.sendComfirmation(user);
+        } catch (MailException ex) {
+            Logger.getLogger(User_servicesimpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            Logger.getLogger(User_servicesimpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return usr_repo.add_user(user);
     }
 
