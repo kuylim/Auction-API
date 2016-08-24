@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.khmeracademy.btb.auc.pojo.entity.User;
 import org.khmeracademy.btb.auc.pojo.entity.UserLogin;
+import org.khmeracademy.btb.auc.pojo.entity.User_feedback;
 import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.khmeracademy.btb.auc.pojo.service.User_service;
+import org.khmeracademy.btb.auc.pojo.utilities.Feedback_service;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
@@ -34,8 +36,11 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequestMapping(value = "/api/user")
 public class User_controller {
-     @Autowired
+    @Autowired
     private User_service usr_service;
+    
+    @Autowired
+    private Feedback_service feedback;
     
     @RequestMapping(value="/get", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
@@ -332,6 +337,29 @@ public class User_controller {
             e.printStackTrace();
         }
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
+     @RequestMapping(value = "/feedback", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<Map<String, Object>> add_admin(@RequestBody User_feedback user)
+    {
+       Map<String, Object> map = new HashMap<String , Object>();
+        try{
+            
+            if(feedback.sendFeedback(user)){
+		map.put("MESSAGE", "User has been inserted.");
+		map.put("STATUS", true);
+            }else
+            {
+		map.put("MESSAGE", "User has not been inserted.");
+		map.put("STATUS", false);
+            }
+	}
+        catch(Exception e){
+            map.put("MESSAGE", "Error!");
+            map.put("STATUS", false);
+            e.printStackTrace();
+	}
+	return new ResponseEntity<Map<String,Object>>(map , HttpStatus.OK);
     }
   
     
