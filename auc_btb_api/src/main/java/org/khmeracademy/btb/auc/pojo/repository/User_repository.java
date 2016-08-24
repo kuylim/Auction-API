@@ -13,7 +13,6 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.khmeracademy.btb.auc.pojo.entity.Product_Owner;
 import org.khmeracademy.btb.auc.pojo.entity.User;
 import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
@@ -45,7 +44,7 @@ public interface User_repository {
     boolean remove(int id);
     
     
-    @Insert("Insert Into auc_user (firstname, lastname, username, phone, email, address, credit, password, status, role) values (#{firstname}, #{lastname}, #{username}, #{phone}, #{email}, #{address}, 4000, #{password}, 'true', 'ROLE_USER')")
+    @Insert("Insert Into auc_user (firstname, lastname, username, phone, email, address, credit, password, status, role, verifyKey) values (#{firstname}, #{lastname}, #{username}, #{phone}, #{email}, #{address}, 4000, #{password}, 'false', 'ROLE_USER', #{verifyKey})")
     boolean add_user(User customer);
     
     @Insert("Insert Into auc_user (firstname, lastname, username, phone, email, address, credit, password, status, role) values (#{firstname}, #{lastname}, #{username}, #{phone}, #{email}, #{address}, #{credit}, #{password}, 'true', 'ROLE_ADMIN')")
@@ -67,9 +66,28 @@ public interface User_repository {
         @Result(property = "email", column = "email"),
         @Result(property = "address", column = "address"),
         @Result(property = "credit", column = "credit"),
-        @Result(property = "status", column = "status")
+        @Result(property = "status", column = "status"),
+        @Result(property = "verifyKey", column = "verifykey")
     })
     User search(int id);  
+    
+    @Select ("Select * from auc_user where verifykey = #{key}")
+        @Results({
+        @Result(property = "usr_id", column = "usr_id"),
+        @Result(property = "firstname", column = "firstname"),
+        @Result(property = "lastname", column = "lastname"),
+        @Result(property = "username", column = "username"),
+        @Result(property = "phone", column = "phone"),
+        @Result(property = "email", column = "email"),
+        @Result(property = "address", column = "address"),
+        @Result(property = "credit", column = "credit"),
+        @Result(property = "status", column = "status"),
+        @Result(property = "verifyKey", column = "verifykey")
+    })
+    User comfirmEmail(String key);
+    
+    @Update("Update auc_user Set status='true'  where usr_id = #{id}")
+    boolean activateAccount (int id);
     
     @Select("SELECT COUNT(usr_id) FROM auc_user Where status = 'true' AND role = 'ROLE_USER'")
     int countCustomer();
@@ -96,7 +114,8 @@ public interface User_repository {
         @Result(property = "email", column = "email"),
         @Result(property = "address", column = "address"),
         @Result(property = "credit", column = "credit"),
-        @Result(property = "status", column = "status")
+        @Result(property = "status", column = "status"),
+        @Result(property = "verifyKey", column = "verifykey")
         
     })
     List<User> findAll(@Param("filter")AuctionFilter filter, @Param("pagination")Pagination pagination);

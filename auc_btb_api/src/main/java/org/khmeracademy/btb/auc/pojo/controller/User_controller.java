@@ -303,6 +303,36 @@ public class User_controller {
         }
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
+    
+    @RequestMapping(value="/verifykey/{key}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> verifyKey(@PathVariable("key") String key)
+    {
+         Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            User customer = usr_service.comfirmEmail(key);
+            if(customer!=null)
+            {
+                //map.put("DATA", customer);
+                usr_service.activateAccount(customer.getCus_id());
+                map.put("STATUS", true);
+                map.put("MESSAGE", "Account activated!");
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
   
     
 }

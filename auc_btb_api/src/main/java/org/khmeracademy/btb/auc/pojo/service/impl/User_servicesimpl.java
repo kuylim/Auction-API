@@ -7,6 +7,7 @@ package org.khmeracademy.btb.auc.pojo.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import org.khmeracademy.btb.auc.pojo.entity.User;
 import org.khmeracademy.btb.auc.pojo.filtering.AuctionFilter;
 import org.khmeracademy.btb.auc.pojo.utilities.Pagination;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.khmeracademy.btb.auc.pojo.repository.User_repository;
 import org.khmeracademy.btb.auc.pojo.service.User_service;
+import org.khmeracademy.btb.auc.pojo.utilities.VerifyCode_sevice;
 
 /**
  *
@@ -24,6 +26,9 @@ public class User_servicesimpl implements User_service{
 
     @Autowired
     private User_repository usr_repo;
+    
+    @Autowired
+    private VerifyCode_sevice verifycode;
     
     @Override
     public ArrayList<User> getUsers(Pagination paginatin) {
@@ -37,6 +42,9 @@ public class User_servicesimpl implements User_service{
 
     @Override
     public boolean save_user(User user) {
+        String verifyKey = "" + UUID.randomUUID();
+        user.setVerifyKey(verifyKey);
+        verifycode.sendComfirmation(user);
         return usr_repo.add_user(user);
     }
 
@@ -83,6 +91,16 @@ public class User_servicesimpl implements User_service{
     @Override
     public int count(AuctionFilter filter) {
         return usr_repo.count(filter);
+    }
+
+    @Override
+    public User comfirmEmail(String key) {
+        return usr_repo.comfirmEmail(key);
+    }
+
+    @Override
+    public boolean activateAccount(int id) {
+        return usr_repo.activateAccount(id);
     }
     
 }

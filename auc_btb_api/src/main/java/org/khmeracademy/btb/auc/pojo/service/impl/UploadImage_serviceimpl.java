@@ -17,7 +17,6 @@ import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
 import org.khmeracademy.btb.auc.pojo.entity.Image;
 import org.khmeracademy.btb.auc.pojo.repository.UploadImage_repository;
-import org.khmeracademy.btb.auc.pojo.service.Product_service;
 import org.khmeracademy.btb.auc.pojo.service.UploadImage_service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

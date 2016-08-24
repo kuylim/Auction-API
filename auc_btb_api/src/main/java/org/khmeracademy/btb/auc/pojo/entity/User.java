@@ -21,6 +21,7 @@ public class User {
     private String password;
     private boolean status;
     private String role;
+    private String verifyKey;
 
     /**
      * @return the usr_id
@@ -174,5 +175,19 @@ public class User {
      */
     public void setRole(String role) {
         this.role = role;
+    }
+
+    /**
+     * @return the verifyKey
+     */
+    public String getVerifyKey() {
+        return verifyKey;
+    }
+
+    /**
+     * @param verifyKey the verifyKey to set
+     */
+    public void setVerifyKey(String verifyKey) {
+        this.verifyKey = verifyKey;
     }
 }
