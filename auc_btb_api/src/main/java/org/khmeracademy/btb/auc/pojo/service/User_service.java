@@ -33,4 +33,7 @@ public interface User_service {
     User comfirmEmail(String key);
     boolean activateAccount(int id);
     
+    public List<User> findAllAdmin(AuctionFilter filter, Pagination pagination);
+    int countAdmin(AuctionFilter filter);
+    
 }

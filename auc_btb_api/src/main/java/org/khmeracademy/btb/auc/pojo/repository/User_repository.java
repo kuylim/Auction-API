@@ -102,7 +102,7 @@ public interface User_repository {
         })
     User findUserByEmail(@Param("userEmail") String userEmail);
     
-     @Select("Select * from auc_user  Where status = 'true' AND role = 'ROLE_USER'"
+    @Select("Select * from auc_user  Where status = 'true' AND role = 'ROLE_USER'"
             + "AND firstname ~* #{filter.name}\n"
             + "offset #{pagination.offset} limit #{pagination.limit}")
     @Results({
@@ -122,4 +122,27 @@ public interface User_repository {
     
     @Select("Select Count(usr_id) from auc_user Where status = 'true' AND firstname ~* #{filter.name}")
     int count(@Param("filter") AuctionFilter filter);
+    
+    @Select("Select * from auc_user  Where status = 'true' AND role = 'ROLE_ADMIN'"
+            + "AND firstname ~* #{filter.name}\n"
+            + "offset #{pagination.offset} limit #{pagination.limit}")
+    @Results({
+        @Result(property = "usr_id", column = "usr_id"),
+        @Result(property = "firstname", column = "firstname"),
+        @Result(property = "lastname", column = "lastname"),
+        @Result(property = "username", column = "username"),
+        @Result(property = "phone", column = "phone"),
+        @Result(property = "email", column = "email"),
+        @Result(property = "address", column = "address"),
+        @Result(property = "credit", column = "credit"),
+        @Result(property = "status", column = "status"),
+        @Result(property = "verifyKey", column = "verifykey")
+        
+    })
+    List<User> findAllAdmin(@Param("filter")AuctionFilter filter, @Param("pagination")Pagination pagination);
+    
+     @Select("Select Count(usr_id) from auc_user Where status = 'true' AND role = 'ROLE_ADMIN' AND firstname ~* #{filter.name}")
+    int countAdmin(@Param("filter") AuctionFilter filter);
+    
+  
 }

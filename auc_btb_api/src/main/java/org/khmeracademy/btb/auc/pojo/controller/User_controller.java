@@ -309,6 +309,43 @@ public class User_controller {
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
     
+    
+     @RequestMapping(value="/get-all-admin", method = RequestMethod.GET, produces = "application/json")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name="page", paramType = "query", defaultValue = "1"),
+        @ApiImplicitParam(name="limit", paramType = "query", defaultValue = "10"),
+        @ApiImplicitParam(name="name", paramType = "query", defaultValue = "")   
+    })
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> findAllAdmin(@ApiIgnore AuctionFilter filter, @ApiIgnore Pagination pagination)
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try
+        {
+            pagination.setTotalCount(usr_service.countAdmin(filter));
+            ArrayList<User> auction = (ArrayList<User>) usr_service.findAllAdmin(filter, pagination);
+            if(!auction.isEmpty())
+            {
+                map.put("DATA", auction);
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA FOUND!");
+                map.put("PAGINATION", pagination);
+            }
+            else
+            {
+                map.put("STATUS", true);
+                map.put("MESSAGE", "DATA NOT FOUND");
+            }
+        }
+        catch (Exception e)
+        {
+            map.put("STATUS", false);
+            map.put("MESSAGE", "Error!");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+    
     @RequestMapping(value="/verifykey/{key}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> verifyKey(@PathVariable("key") String key)

@@ -112,5 +112,15 @@ public class User_servicesimpl implements User_service{
     public boolean activateAccount(int id) {
         return usr_repo.activateAccount(id);
     }
+
+    @Override
+    public List<User> findAllAdmin(AuctionFilter filter, Pagination pagination) {
+        return usr_repo.findAllAdmin(filter, pagination);
+    }
+
+    @Override
+    public int countAdmin(AuctionFilter filter) {
+        return usr_repo.countAdmin(filter);
+    }
     
 }
