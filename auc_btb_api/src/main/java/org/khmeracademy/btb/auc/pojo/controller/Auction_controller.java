@@ -502,7 +502,7 @@ public class Auction_controller {
         Map<String, Object> map = new HashMap<String, Object>();
         try
         {
-            pagination.setTotalCount(auc_service.countAuction());
+            pagination.setTotalCount(auc_service.count(filter));
             ArrayList<Auction_Detail> auction = (ArrayList<Auction_Detail>) auc_service.findAll(filter, pagination);
             if(!auction.isEmpty())
             {

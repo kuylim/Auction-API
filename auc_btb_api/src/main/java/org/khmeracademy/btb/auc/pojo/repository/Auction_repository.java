@@ -564,7 +564,7 @@ public interface Auction_repository {
         "   WHERE  auc_auction.status = 'true'\n" +
         "   Group By auc_product.pro_id,auc_auction.auc_id,auc_product_owner.owner_id \n" +
         "   Order By start_date DESC \n" +
-        "   LIMIT 6")
+        "   LIMIT 8")
     @Results({
         @Result(property = "product_condition", column = "product_condition"),
         @Result(property = "start_price", column = "start_price"),

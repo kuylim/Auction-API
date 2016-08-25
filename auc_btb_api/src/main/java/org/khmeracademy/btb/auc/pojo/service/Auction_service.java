@@ -40,4 +40,5 @@ public interface Auction_service {
     ArrayList<Auction_Detail> getTopAndLowAuction();
     
     public List<Auction_Detail> findAll(AuctionFilter filter, Pagination pagination);
+    int count(AuctionFilter filter);
 }
