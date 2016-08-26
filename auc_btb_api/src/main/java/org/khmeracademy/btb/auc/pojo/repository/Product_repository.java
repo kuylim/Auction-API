@@ -79,7 +79,7 @@ public interface Product_repository {
         "  public.auc_product\n" +
         "  Where auc_product.status = 'true'\n" +
         "  AND auc_product.name ~* #{filter.name}\n" +
-        "  AND auc_product.brand_id::TEXT = #{filter.brandId} " )
+        "  AND auc_product.brand_id::TEXT LIKE  #{filter.brandId} " )
     int countAllProduct(@Param("filter") AuctionFilter filter);
     
     @Select("SELECT \n" +
@@ -91,7 +91,7 @@ public interface Product_repository {
 
     @Select("Select * from auc_product  Where status = 'true' \n" +
             "AND auc_product.name ~* #{filter.name}" +
-            "AND auc_product.brand_id::TEXT =  #{filter.brandId} \n "
+            "AND auc_product.brand_id::TEXT LIKE  #{filter.brandId}\n "
             + "offset #{pagination.offset} limit #{pagination.limit}")
     @Results({
         @Result(property = "pro_id", column = "pro_id"),
